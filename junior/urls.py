@@ -19,4 +19,6 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^success_story/$', 'success_story.views.success_story', name='success_story'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', 'success_story.views.home', name='home'),
+
 ]
