@@ -1,46 +1,19 @@
 from django.db import models
-import ast
-
-class ListField(models.TextField):
-    __metaclass__ = models.SubfieldBase
-    description = "Stores a python list"
-
-    def __init__(self, *args, **kwargs):
-        super(ListField, self).__init__(*args, **kwargs)
-
-    def to_python(self, value):
-        if not value:
-            value = []
-
-        if isinstance(value, list):
-            return value
-
-        return ast.literal_eval(value)
-
-    def get_prep_value(self, value):
-        if value is None:
-            return value
-
-        return unicode(value)
-
-    def value_to_string(self, obj):
-        value = self._get_val_from_obj(obj)
-        return self.get_db_prep_value(value)
 
 
 class SuccessStory(models.Model):
     story_title = models.CharField(max_length=100)
     story_text = models.TextField()
     story_author = models.CharField(max_length=100)
-    story_img_avatar = models.ImageField()
-    story_img_background = models.ImageField()
+    story_img_avatar = models.ImageField(null=True, blank=True)
+    story_img_background = models.ImageField(null=True, blank=True)
     story_advice = models.CharField(max_length=120)
-    story_stack = ListField()
+    story_stack = models.TextField()
     story_used_to = models.CharField(max_length=100)
     story_became = models.CharField(max_length=100)
     story_timestamp_created = models.DateTimeField(auto_now_add=True, auto_now=False)
     story_timestamp_updated = models.DateTimeField(auto_now_add=False, auto_now=True)
-    story_rate = models.DecimalField(max_digits=3, decimal_places=1)
+    story_rate = models.DecimalField(max_digits=3, decimal_places=1, default=0)
 
     def __unicode__(self):
         return self.story_title
