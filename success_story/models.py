@@ -21,7 +21,7 @@ class Speciality(models.Model):
         ordering = ('title',)
 
 
-spec = [(spec.id, spec.title) for spec in Speciality.objects.all()]
+spec = [(spec.title, spec.title) for spec in Speciality.objects.all()]
 
 
 class SuccessStory(models.Model):
