@@ -1,8 +1,6 @@
 from django.db import models
 
 
-MY_CHOICES = ((1, "Flask"), (2, "Django"),)
-
 class StackSkills(models.Model):
     skill = models.CharField(max_length=100)
 
@@ -13,6 +11,19 @@ class StackSkills(models.Model):
         ordering = ('skill',)
 
 
+class Speciality(models.Model):
+    title = models.CharField(max_length=100, unique=True)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        ordering = ('title',)
+
+
+spec = [(spec.id, spec.title) for spec in Speciality.objects.all()]
+
+
 class SuccessStory(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
@@ -21,12 +32,11 @@ class SuccessStory(models.Model):
     img_background = models.ImageField(null=True, blank=True)
     advice = models.CharField(max_length=120)
     stack_skills = models.ManyToManyField(StackSkills)
-    used_to = models.CharField(max_length=100)
-    became = models.CharField(max_length=100)
+    used_to = models.CharField(max_length=100, choices=spec)
+    became = models.CharField(max_length=100, choices=spec)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     rate = models.DecimalField(max_digits=3, decimal_places=1, default=0)
 
     def __unicode__(self):
         return self.title
-
