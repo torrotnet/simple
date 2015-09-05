@@ -19,7 +19,7 @@ def success_story(request):
             "title": "Your story saved succesfully. Thank you!"
         }
 
-    return render(request, "success_story.html", context)
+    return render(request, "base.html", context)
 
 
 def home(request):
