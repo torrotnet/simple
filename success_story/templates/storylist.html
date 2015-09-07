@@ -1,0 +1,11 @@
+{% extends "success_story.html" %}
+
+{% block storylist %}
+    <h1>Success stories <small>Step-by-step to find out how to became a successful person.</small></h1>
+    <hr/>
+    <a class="cg ts" href="/success_story/new/">Write my own story</a>
+    {% for o in list %}
+
+        {% include "story.html" %}
+    {% endfor %}
+{% endblock %}

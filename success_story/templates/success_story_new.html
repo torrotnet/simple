@@ -31,13 +31,16 @@
         <div class="go">
         </div>
         <div class="ha">
-
-            {% block storylist %}{% endblock %}
-
+            <form method="POST" activity="">{% csrf_token %}
+                {{ form|crispy }}
+                {% if form %}
+                    <button type="submit" class="cg ub fp">Save</button>
+                    <a class="cg ts" href="/success_story/">Return</a>
+                {% endif %}
+            </form>
         </div>
         <div class="go">
         </div>
     </div>
-
 </body>
 </html>
