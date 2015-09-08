@@ -1,13 +1,31 @@
-<div>
-<h2><a href="/projects/try-django-18/">Try Django 1.8</a>
-    <span class='video_tip' data-placement="top" data-original-title="Free Preview" data-toggle="tooltip" href='#'>
-        <i class="fa fa-thumbs-up"></i>
-    </span>
+<div>           <!-- TODO  improve outview-->
+<h2><a href="{{ story.id}}">{{ story.title }}</a> <small><em>by {{ story.author }}</em></small>
+{#    <span class='video_tip' data-placement="top" data-original-title="Free Preview" data-toggle="tooltip" href='#'>#}
+{#        <i class="fa fa-thumbs-up"></i>#}
+{#    </span>#}
     <br/>
-    <small>Free Preview</small>
+        <small><button type="button" class="cg fx ub fr">{{ story.used_to }}</button></small>
+    <i class="fa fa-fighter-jet"></i>
+    <button type="button" class="cg fx ub fr">{{ story.became }}</button>
+    <br/>
+    <small>Advice: <em>{{ story.advice }}</em></small>
+    <br/>
+
+    {% if story.stack_skills.all %}
+    <small>Skills:
+    {% for skill in story.stack_skills.all %}
+    <button type="button" class="cg fx tu">{{ skill }}</button>
+    {% endfor %}
+    </small>
+    <br/>
+    {% endif %}
+
+    <small>Story rate: {{ story.rate }}</small>
+
+{#    <small>{{ story.used_to }} </small><i class="fa fa-fighter-jet"></i> {{ story.became }}#}
 </h2>
-<a href="/projects/try-django-18/">
-    <img src='//cfe-static.s3.amazonaws.com/media/try-django-18/images/try_django_18.png' class='img-responsive'>
+<a href="{{ story.id}}">
+    <img src='/media/try_django_18.png' class='img-responsive'> <!--TODO: img url media  story.img_background-->
 </a>
 <br/>
 </div>

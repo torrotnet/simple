@@ -1,14 +1,16 @@
 from django.shortcuts import render
 from success_story.forms import SuccessStoryForm
+from success_story.models import SuccessStory
 
 
-def success_story(request):
+def success_story_list(request):
     title = "Success story"
     form = SuccessStoryForm(request.POST or None)
+    stories = SuccessStory.objects.all()
     context = {
         "title": title,
         "form": form,
-        "list": [1, 2, 3]
+        "stories": stories
     }
 
     if form.is_valid():
@@ -21,6 +23,16 @@ def success_story(request):
         }
 
     return render(request, "storylist.html", context)
+
+
+def success_story(request, id):
+    title = "Success story"
+    story = SuccessStory.objects.filter(id=id).first()
+    context = {
+        "title": title,
+        "story": story,
+    }
+    return render(request, "story_show.html", context)
 
 
 def success_story_new(request):
@@ -41,6 +53,14 @@ def success_story_new(request):
         }
 
     return render(request, "success_story_new.html", context)
+
+
+def success_story_new_thank_you(request):
+    title = "Success story saved"
+    context = {
+        "title": title,
+    }
+    return render(request, "success_story_new_thank_you.html", context)
 
 
 def home(request):

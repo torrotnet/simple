@@ -19,8 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^success_story/$', 'success_story.views.success_story', name='success_story'),
+    url(r'^success_story/$', 'success_story.views.success_story_list', name='success_story_list'),
+    url(r'^success_story/(?P<id>[0-9])/$', 'success_story.views.success_story', name='success_story'),
     url(r'^success_story/new/$', 'success_story.views.success_story_new', name='success_story_new'),
+    url(r'^success_story/new/thank_you$', 'success_story.views.success_story_new_thank_you', name='success_story_new_thank_you'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'success_story.views.home', name='home'),
 

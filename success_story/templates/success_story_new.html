@@ -31,7 +31,8 @@
         <div class="go">
         </div>
         <div class="ha">
-            <form method="POST" activity="">{% csrf_token %}
+            My success story<br/>
+            <form method="POST" action="/success_story/new/thank_you">{% csrf_token %}
                 {{ form|crispy }}
                 {% if form %}
                     <button type="submit" class="cg ub fp">Save</button>

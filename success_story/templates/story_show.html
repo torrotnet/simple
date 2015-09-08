@@ -1,0 +1,61 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+    <title>{{ title }}</title>
+
+    <style>
+      body {
+        width: 1px;
+        min-width: 100%;
+        *width: 100%;
+      }
+    </style>
+
+    {% include "head_css.html" %}
+
+</head>
+
+<body class="anf">
+    <div class="anp" id="app-growl"></div>
+
+    {% include 'navbar.html' %}
+    <div class="by ams">
+        <div class="go">
+        </div>
+        <div class="ha">
+
+            <h1>{{ story.title }}</h1> by <em>{{ story.author }}</em>
+            <br>
+            <small><button type="button" class="cg fx ub fr">{{ story.used_to }}</button></small>
+            <i class="fa fa-fighter-jet"></i>
+            <button type="button" class="cg fx ub fr">{{ story.became }}</button>
+            <br/>
+            <small>Advice: <em>{{ story.advice }}</em></small>
+            <br/>
+            <small>Skills:
+            {% for skill in story.stack_skills.all %}
+                <button type="button" class="cg fx tu">{{ skill }}</button>
+            {% endfor %}
+            </small>
+            <br/>
+            <small>Story rate: {{ story.rate }}</small>
+            <hr>
+            {{ story.text }}
+            <br>
+        <!--TODO contact form, vote-->
+            <a class="cg ts" href="/success_story/">Return</a>
+        </div>
+        <div class="go">
+        </div>
+    </div>
+
+</body>
+</html>

@@ -4,8 +4,8 @@
     <h1>Success stories <small>Step-by-step to find out how to became a successful person.</small></h1>
     <hr/>
     <a class="cg ts" href="/success_story/new/">Write my own story</a>
-    {% for o in list %}
-
+    <!-- TODO: sort by Rate, created, last changed; filter by skill -->
+    {% for story in stories %}
         {% include "story.html" %}
     {% endfor %}
 {% endblock %}

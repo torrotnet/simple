@@ -8,11 +8,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <title>
-
-        Success story &middot; Junior Developer
-
-    </title>
+    <title>{{ title }}</title>
 
     <style>
       body {
@@ -27,19 +23,18 @@
 </head>
 
 <body class="anf">
-<div class="anp" id="app-growl"></div>
+    <div class="anp" id="app-growl"></div>
 
-{% include 'navbar.html' %}
-
-{#{% include 'msgModal.html' %}#}
-
-{#{% include 'userModal.html' %}#}
-
-{#{% include 'mypage.html' %}#}
-
-{#{% include 'storylist.html' %}#}
-{#<div>{% block stories %}{% endblock stories %}</div>#}
-
-{% include "javascript.html" %}
+    {% include 'navbar.html' %}
+    <div class="by ams">
+        <div class="go">
+        </div>
+        <div class="ha">
+            Thank you for story.
+            <a class="cg ts" href="/success_story/">Return to stories</a>
+        </div>
+        <div class="go">
+        </div>
+    </div>
 </body>
 </html>
