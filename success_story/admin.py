@@ -5,10 +5,11 @@ from .models import SuccessStory, Speciality, StackSkills, Advice
 
 
 class SuccessStoryAdmin(admin.ModelAdmin):
-    list_display = ["__unicode__", "author", "created"]
+    list_display = ["__unicode__", "author", "used_to", "became", "rate", "created", "updated"]
     form = SuccessStoryForm
     # class Meta:
     #     model = SuccessStory
+
 
 class SpecialityAdmin(admin.ModelAdmin):
     list_display = ["__unicode__"]
@@ -23,6 +24,7 @@ class StackSkillsAdmin(admin.ModelAdmin):
 class AdviceAdmin(admin.ModelAdmin):
     list_display = ["__unicode__"]
     form = AdviceForm
+
 
 admin.site.register(SuccessStory, SuccessStoryAdmin)
 admin.site.register(Speciality, SpecialityAdmin)

@@ -49,9 +49,7 @@ class Migration(migrations.Migration):
                 ('created', models.DateTimeField(auto_now_add=True)),
                 ('updated', models.DateTimeField(auto_now=True)),
                 ('rate', models.DecimalField(default=0, max_digits=3, decimal_places=1)),
-                ('became', models.ForeignKey(related_name='+', to='success_story.Speciality')),
                 ('stack_skills', models.ManyToManyField(to='success_story.StackSkills')),
-                ('used_to', models.ForeignKey(related_name='+', to='success_story.Speciality')),
             ],
         ),
         migrations.AddField(

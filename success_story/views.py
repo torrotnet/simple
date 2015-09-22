@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from django import forms
 from success_story.forms import SuccessStoryForm
-from success_story.models import SuccessStory, Speciality, StackSkills
+from success_story.models import SuccessStory
 
 
 def success_story_list(request):
@@ -38,15 +37,8 @@ def success_story(request, id):
 
 def success_story_new(request):
     title = "Success story"
-    # stack_skills_choices = [(ss.skill, ss.skill) for ss in StackSkills.objects.all()]
-
-    # used_to = forms.ChoiceField(required=True, label='Project creator', choices=spec)
 
     form = SuccessStoryForm(request.POST or None)
-
-    # form.fields["used_to"].choices = spec
-    # form.fields["became"].choices = spec
-    # form.fields["stack_skills"].choices = stack_skills_choices
 
     context = {
         "title": title,
