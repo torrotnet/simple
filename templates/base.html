@@ -1,45 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
+
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <title>
-
-        Success story &middot; Junior Developer
-
-    </title>
-
-    <style>
-      body {
-        width: 1px;
-        min-width: 100%;
-        *width: 100%;
-      }
-    </style>
+    <title>{% block title %}Junior Developer | {% endblock %}</title>
 
     {% include "head_css.html" %}
 
 </head>
 
-<body class="anf">
-<div class="anp" id="app-growl"></div>
+<body>
 
-{% include 'navbar.html' %}
+<div id="wrapper">
 
-{#{% include 'msgModal.html' %}#}
+    {% include "navbar-side.html" %}
 
-{#{% include 'userModal.html' %}#}
+    <div id="page-wrapper" class="gray-bg">
 
-{#{% include 'mypage.html' %}#}
+        {% include "navbar-top.html" %}
 
-{#{% include 'storylist.html' %}#}
-{#<div>{% block stories %}{% endblock stories %}</div>#}
+        {% block content %}{% endblock %}
+
+        {% include "footer.html" %}
+
+    </div>
+</div>
 
 {% include "javascript.html" %}
+
 </body>
+
 </html>

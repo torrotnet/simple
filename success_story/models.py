@@ -12,16 +12,16 @@ class StackSkills(models.Model):
 
 
 class Speciality(models.Model):
-    title = models.CharField(max_length=100, unique=True)
+    spec_title = models.CharField(max_length=100, unique=True)
 
     def __unicode__(self):
-        return self.title
+        return self.spec_title
 
     class Meta:
-        ordering = ('title',)
+        ordering = ('spec_title',)
 
 
-spec = [(spec.title, spec.title) for spec in Speciality.objects.all()]
+# spec = [(spec.title, spec.title) for spec in Speciality.objects.all()]
 
 
 class SuccessStory(models.Model):
@@ -30,13 +30,20 @@ class SuccessStory(models.Model):
     author = models.CharField(max_length=100)
     img_avatar = models.ImageField(null=True, blank=True)
     img_background = models.ImageField(null=True, blank=True)
-    advice = models.CharField(max_length=120)
     stack_skills = models.ManyToManyField(StackSkills)
-    used_to = models.CharField(max_length=100, choices=spec)
-    became = models.CharField(max_length=100, choices=spec)
+    used_to = models.ForeignKey(Speciality, related_name='+')
+    became = models.ForeignKey(Speciality, related_name='+')
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
     rate = models.DecimalField(max_digits=3, decimal_places=1, default=0)
 
     def __unicode__(self):
         return self.title
+
+
+class Advice(models.Model):
+    success_story = models.ForeignKey(SuccessStory)
+    text = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return "Advices for %s story" % self.id

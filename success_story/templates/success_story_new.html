@@ -1,47 +1,15 @@
+{% extends "success-story.html" %}
 {% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
 
-    <title>{{ title }}</title>
+{% block story_content %}
+    My success story<br/>
+    <form method="POST" action="">{% csrf_token %}
+        {{ form|crispy }}
+        {% if form %}
+             <button type="submit">Save</button>
+             <a class="cg ts" href="/success_story/">Return</a>
+        {% endif %}
+    </form>
 
-    <style>
-      body {
-        width: 1px;
-        min-width: 100%;
-        *width: 100%;
-      }
-    </style>
 
-    {% include "head_css.html" %}
-
-</head>
-
-<body class="anf">
-    <div class="anp" id="app-growl"></div>
-
-    {% include 'navbar.html' %}
-    <div class="by ams">
-        <div class="go">
-        </div>
-        <div class="ha">
-            My success story<br/>
-            <form method="POST" action="/success_story/new/thank_you">{% csrf_token %}
-                {{ form|crispy }}
-                {% if form %}
-                    <button type="submit" class="cg ub fp">Save</button>
-                    <a class="cg ts" href="/success_story/">Return</a>
-                {% endif %}
-            </form>
-        </div>
-        <div class="go">
-        </div>
-    </div>
-</body>
-</html>
+{% endblock %}

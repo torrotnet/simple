@@ -1,11 +1,14 @@
-{% extends "success_story.html" %}
+{% extends "success-story.html" %}
 
-{% block storylist %}
-    <h1>Success stories <small>Step-by-step to find out how to became a successful person.</small></h1>
+{% block story_content %}
+    <h1>Success stories</h1>
+    Step-by-step to find out how to became a successful person
     <hr/>
-    <a class="cg ts" href="/success_story/new/">Write my own story</a>
+    <a class="btn btn-outline btn-success" href="/success_story/new/">Write my own story</a>
     <!-- TODO: sort by Rate, created, last changed; filter by skill -->
+    <div class="row">
     {% for story in stories %}
         {% include "story.html" %}
     {% endfor %}
+    </div>
 {% endblock %}

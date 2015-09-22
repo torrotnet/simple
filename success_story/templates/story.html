@@ -1,31 +1,25 @@
-<div>           <!-- TODO  improve outview-->
-<h2><a href="{{ story.id}}">{{ story.title }}</a> <small><em>by {{ story.author }}</em></small>
-{#    <span class='video_tip' data-placement="top" data-original-title="Free Preview" data-toggle="tooltip" href='#'>#}
-{#        <i class="fa fa-thumbs-up"></i>#}
-{#    </span>#}
-    <br/>
-        <small><button type="button" class="cg fx ub fr">{{ story.used_to }}</button></small>
-    <i class="fa fa-fighter-jet"></i>
-    <button type="button" class="cg fx ub fr">{{ story.became }}</button>
-    <br/>
-    <small>Advice: <em>{{ story.advice }}</em></small>
-    <br/>
-
-    {% if story.stack_skills.all %}
-    <small>Skills:
-    {% for skill in story.stack_skills.all %}
-    <button type="button" class="cg fx tu">{{ skill }}</button>
-    {% endfor %}
-    </small>
-    <br/>
-    {% endif %}
-
-    <small>Story rate: {{ story.rate }}</small>
-
-{#    <small>{{ story.used_to }} </small><i class="fa fa-fighter-jet"></i> {{ story.became }}#}
-</h2>
-<a href="{{ story.id}}">
-    <img src='/media/try_django_18.png' class='img-responsive'> <!--TODO: img url media  story.img_background-->
-</a>
-<br/>
-</div>
+{% load staticfiles %}
+        <div class="col-lg-6">
+            <div class="widget-head-color-box navy-bg p-lg text-center">
+                <div class="m-b-md">
+                    <h2 class="font-bold no-margins">
+                        Alex Smith
+                    </h2>
+                    <small>Founder of Groupeq</small>
+                </div>
+                <img src="{% static 'img/a4.jpg' %}" class="img-circle circle-border m-b-md" alt="profile">
+                <div>
+                    <span>100 Tweets</span> |
+                    <span>350 Following</span> |
+                    <span>610 Followers</span>
+                </div>
+            </div>
+            <div class="widget-text-box">
+                <h4 class="media-heading">Alex Smith</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <div class="text-right">
+                    <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                    <a class="btn btn-xs btn-primary"><i class="fa fa-heart"></i> Love</a>
+                </div>
+            </div>
+        </div>

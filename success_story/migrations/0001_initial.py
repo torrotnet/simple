@@ -11,21 +11,52 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Advice',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('text', models.CharField(max_length=200)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Speciality',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('spec_title', models.CharField(unique=True, max_length=100)),
+            ],
+            options={
+                'ordering': ('spec_title',),
+            },
+        ),
+        migrations.CreateModel(
+            name='StackSkills',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('skill', models.CharField(max_length=100)),
+            ],
+            options={
+                'ordering': ('skill',),
+            },
+        ),
+        migrations.CreateModel(
             name='SuccessStory',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('story_title', models.CharField(max_length=100)),
-                ('story_text', models.TextField()),
-                ('story_author', models.CharField(max_length=100)),
-                ('story_img_avatar', models.ImageField(upload_to=b'')),
-                ('story_img_background', models.ImageField(upload_to=b'')),
-                ('story_advice', models.CharField(max_length=120)),
-                ('story_stack', models.TextField()),
-                ('story_used_to', models.CharField(max_length=100)),
-                ('story_became', models.CharField(max_length=100)),
-                ('story_timestamp_created', models.DateTimeField(auto_now_add=True)),
-                ('story_timestamp_updated', models.DateTimeField(auto_now=True)),
-                ('story_rate', models.DecimalField(max_digits=3, decimal_places=1)),
+                ('title', models.CharField(max_length=100)),
+                ('text', models.TextField()),
+                ('author', models.CharField(max_length=100)),
+                ('img_avatar', models.ImageField(null=True, upload_to=b'', blank=True)),
+                ('img_background', models.ImageField(null=True, upload_to=b'', blank=True)),
+                ('created', models.DateTimeField(auto_now_add=True)),
+                ('updated', models.DateTimeField(auto_now=True)),
+                ('rate', models.DecimalField(default=0, max_digits=3, decimal_places=1)),
+                ('became', models.ForeignKey(related_name='+', to='success_story.Speciality')),
+                ('stack_skills', models.ManyToManyField(to='success_story.StackSkills')),
+                ('used_to', models.ForeignKey(related_name='+', to='success_story.Speciality')),
             ],
+        ),
+        migrations.AddField(
+            model_name='advice',
+            name='success_story',
+            field=models.ForeignKey(to='success_story.SuccessStory'),
         ),
     ]

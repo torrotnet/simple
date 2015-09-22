@@ -1,4 +1,3 @@
-{% load crispy_forms_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +8,11 @@
     <meta name="keywords" content="">
     <meta name="author" content="">
 
-    <title>{{ title }}</title>
+    <title>
+
+        Success story &middot; Junior Developer
+
+    </title>
 
     <style>
       body {
@@ -19,25 +22,18 @@
       }
     </style>
 
-    {% include "head_css.html" %}
+    {% include "head_css1.html" %}
 
 </head>
 
 <body class="anf">
-    <div class="anp" id="app-growl"></div>
+    <div class="anp" id="app-growl"></div> <!-- Growl -->
 
     {% include 'navbar.html' %}
-    <div class="by ams">
-        <div class="go">
-        </div>
-        <div class="ha">
+{#{% include 'msgModal.html' %}#}
+{#{% include 'userModal.html' %}#}
+    <div>{% block content %}{% endblock %}</div>
 
-            {% block storylist %}{% endblock %}
-
-        </div>
-        <div class="go">
-        </div>
-    </div>
-
+    {% include "javascript1.html" %}
 </body>
 </html>
