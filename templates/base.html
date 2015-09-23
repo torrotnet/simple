@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
@@ -10,9 +10,9 @@
     <meta name="author" content="">
 
     <title>{% block title %}Junior Developer | {% endblock %}</title>
-
-    {% include "head_css.html" %}
-
+    {% include "head-css.html" %}
+    {% block head-css %}{% endblock %}
+    {% include "head-css-style.html" %}
 </head>
 
 <body>
@@ -25,6 +25,8 @@
 
         {% include "navbar-top.html" %}
 
+        {% block page-heading %}{% endblock %}
+
         {% block content %}{% endblock %}
 
         {% include "footer.html" %}
@@ -33,6 +35,7 @@
 </div>
 
 {% include "javascript.html" %}
+{% block javascript %}{% endblock %}
 
 </body>
 

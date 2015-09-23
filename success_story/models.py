@@ -21,9 +21,6 @@ class Speciality(models.Model):
         ordering = ('spec_title',)
 
 
-# spec = [(spec.title, spec.title) for spec in Speciality.objects.all()]
-
-
 class SuccessStory(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()

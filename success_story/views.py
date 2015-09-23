@@ -54,7 +54,7 @@ def success_story_new(request):
             "title": "Your story saved succesfully. Thank you!"
         }
 
-    return render(request, "success_story_new.html", context)
+    return render(request, "success-story-new.html", context)
 
 
 def success_story_new_thank_you(request):
