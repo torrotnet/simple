@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^success_story/new/thank_you$', 'success_story.views.success_story_new_thank_you', name='success_story_new_thank_you'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'success_story.views.home', name='home'),
-    (r'^summernote/', include('django_summernote.urls'))
+    url(r'^summernote/', include('django_summernote.urls'))
 
 ]
 

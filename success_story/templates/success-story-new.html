@@ -1,6 +1,6 @@
 {% extends "success-story.html" %}
 {% load staticfiles %}
-{#{% load crispy_forms_tags %}#}
+{% load crispy_forms_tags %}
 
 {% block head-css-story %}
     <!-- include libraries(jQuery, bootstrap, fontawesome) -->
@@ -10,12 +10,19 @@
     <!-- include summernote css-->
     <link href="{% static 'css/plugins/summernote/summernote.css' %}" rel="stylesheet">
     <link href="{% static 'css/plugins/summernote/summernote-bs3.css' %}" rel="stylesheet">
+    <!-- include chosen css-->
+    <link href="{% static 'css/plugins/chosen/chosen.css' %}" rel="stylesheet">
+    <!-- include chosen dropzone-->
+    <link href="{% static 'css/plugins/dropzone/basic.css' %}" rel="stylesheet">
+    <link href="{% static 'css/plugins/dropzone/dropzone.css' %}" rel="stylesheet">
+
+
 {% endblock %}
 
 {% block javascript-story-editor %}
     <!-- SUMMERNOTE -->
     <script src="{% static 'js/plugins/summernote/summernote.min.js' %}"></script>
-    <!-- include summernote-ko-KR -->
+    <!-- include summernote-ru-RU -->
     <script src="{% static 'js/plugins/summernote/lang/summernote-ru-RU.js' %}"></script>
     <script>
         $(document).ready(function(){
@@ -38,6 +45,56 @@
         };
     </script>
 
+    <!-- Chosen -->
+    <script src="{%  static 'js/plugins/chosen/chosen.jquery.js' %}"></script>
+    <script>
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+                }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+    </script>
+
+    <!-- DROPZONE -->
+    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>
+    <script>
+        $(document).ready(function(){
+
+            Dropzone.options.myAwesomeDropzone = {
+
+                autoProcessQueue: false,
+                uploadMultiple: false,
+                parallelUploads: 1,
+                maxFiles: 1,
+                dictDefaultMessage: "Drop image here to upload - jpg, png",
+
+                // Dropzone settings
+                init: function() {
+                    var myDropzone = this;
+
+                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+                    this.on("sendingmultiple", function() {
+                    });
+                    this.on("successmultiple", function(files, response) {
+                    });
+                    this.on("errormultiple", function(files, response) {
+                    });
+                }
+
+            }
+
+       });
+    </script>
+
 {% endblock %}
 
 {% block page-heading-story %}
@@ -56,50 +113,135 @@
 {% endblock %}
 
 {% block story-content %}
-    <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Wyswig Summernote Editor</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#">Config option 1</a>
-                                </li>
-                                <li><a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    {#                    <input type="text" placeholder="Story title..." style='display:table-cell; width:100%'>#}
+                    <input class="textinput textInput form-control" id="id_title" maxlength="100" name="title" type="text" placeholder="Story title..." >
+                    {#                    {{ form|crispy }}#}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    {#                    <div style="float: left">by</div>#}
+                    {#                    <input type="text" placeholder="Story title..." style='display:table-cell; width:100%'>#}
+                    <input class="textinput textInput form-control" id="id_author" maxlength="100" name="author" type="text" placeholder="Story author..." >
+                    {#                    {{ form|crispy }}#}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    {#                    <input type="text" placeholder="Story title..." style='display:table-cell; width:100%'>#}
+                    <input class="textinput textInput form-control" id="id_advice" maxlength="100" name="advice" type="text" placeholder="My advice..." >
+                    {#                    {{ form|crispy }}#}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <div class="input-group">
+                            <select class="chosen-select" style="min-width:265px;" tabindex="1">
+                                <option value="">I used to work as (position)...</option>
+                                <option value="United States">United States</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Aland Islands">Aland Islands</option>
+                                <option value="Albania">Albania</option>
+                            </select>
                         </div>
-                    </div>
-                    <div class="ibox-content no-padding">
-
-                        <div class="summernote">
-                            <h3>Lorem Ipsum is simply</h3>
-                            dummy text of the printing and typesetting industry. <strong>Lorem Ipsum has been the industry's</strong> standard dummy text ever since the 1500s,
-                            when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic
-                            typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with
-                            <br/>
-                            <br/>
-                            <ul>
-                                <li>Remaining essentially unchanged</li>
-                                <li>Make a type specimen book</li>
-                                <li>Unknown printer</li>
-                            </ul>
-                        </div>
-
                     </div>
                 </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <div class="input-group">
+                            <select class="chosen-select" style="min-width:265px;" tabindex="2">
+                                <option value="">I am working  now (position)...</option>
+                                <option value="United States">United States</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Aland Islands">Aland Islands</option>
+                                <option value="Albania">Albania</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <div class="input-group">
+                            <select data-placeholder="Select skills..." class="chosen-select" multiple style="min-width:265px;" tabindex="3">
+                                <option value="United States">United States</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="Aland Islands">Aland Islands</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ibox float-e-margins">
+        <div class="ibox-content no-padding">
+            <div class="summernote">
+                <p>My success story text</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <form id="my-awesome-dropzone" class="dropzone" action="#">
+                            <div class="dropzone-previews"></div>
+                            <button type="submit" class="btn btn-primary pull-right">Download avatar!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <form id="my-awesome-dropzone" class="dropzone" action="#">
+                            <div class="dropzone-previews"></div>
+                            <button type="submit" class="btn btn-primary pull-right">Download background!</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="btn btn-block btn btn-primary">Publish my success story</button>
+
+
 
 {#    <h1>My success story</h1><br/>#}
 {#    <form method="POST" action="">{% csrf_token %}#}
 {##}
-{#        {{ form }}#}
+{#        {{ form|safe }}#}
 {##}
 {##}
 {##}
