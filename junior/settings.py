@@ -61,16 +61,17 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'junior.urls'
 
-# SUMMERNOTE_CONFIG = {
-#     # 'airMode': True,
-#     # Change editor size
-#     'width': '100%',
-#     'height': '480',
-#     # Use proper language setting automatically (default)
-#     'lang': 'ru-RU',
-#     'minHeight': 'null',
-#     'maxHeight': 'null',
-# }
+SUMMERNOTE_CONFIG = {
+    # 'airMode': True,
+    # Change editor size
+    'width': '100%',
+    'height': '480',
+    # Use proper language setting automatically (default)
+    'lang': 'ru-RU',
+    # 'lang': 'ko-KR',
+    'minHeight': 'null',
+    'maxHeight': 'null',
+}
 
 TEMPLATES = [
     {

@@ -3,15 +3,26 @@ from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from .models import SuccessStory, Speciality, StackSkills, Advice
 
 
+# class SuccessStoryTextForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = SuccessStory
+#         fields = ["text"]
+#         widgets = {
+#             # 'text': SummernoteWidget(attrs={'width': '100%', 'height': '500px'}),
+#             'text': SummernoteInplaceWidget(attrs={'width': '100%', 'height': '500px'}),
+#         }
+
+
 class SuccessStoryForm(forms.ModelForm):
 
     class Meta:
         model = SuccessStory
         fields = ["title", "text", "author", "img_avatar", "img_background", "stack_skills", "used_to", "became"]
-        # widgets = {
-        #     'text': SummernoteWidget(attrs={'width': '50%', 'height': '500px'}),
-        #     # 'text': SummernoteInplaceWidget(),
-        # }
+        widgets = {
+            'text': SummernoteWidget(attrs={'width': '100%', 'height': '500px'}),
+            # 'text': SummernoteInplaceWidget(attrs={'width': '100%', 'height': '500px'}),
+        }
 
 
 class StackSkillsForm(forms.ModelForm):

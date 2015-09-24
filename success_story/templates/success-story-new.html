@@ -62,38 +62,45 @@
 
     <!-- DROPZONE -->
     <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>
-    <script>
-        $(document).ready(function(){
-
-            Dropzone.options.myAwesomeDropzone = {
-
-                autoProcessQueue: false,
-                uploadMultiple: false,
-                parallelUploads: 1,
-                maxFiles: 1,
-                dictDefaultMessage: "Drop image here to upload - jpg, png",
-
-                // Dropzone settings
-                init: function() {
-                    var myDropzone = this;
-
-                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        myDropzone.processQueue();
-                    });
-                    this.on("sendingmultiple", function() {
-                    });
-                    this.on("successmultiple", function(files, response) {
-                    });
-                    this.on("errormultiple", function(files, response) {
-                    });
-                }
-
-            }
-
-       });
+    <script type="text/javascript">
+        jQuery(document).ready(function()
+        {
+            var myDropzone = new Dropzone("div#myId", { url: "file-upload"});
+        });
     </script>
+{#    <script>#}
+{#        $(document).ready(function(){#}
+{#            Dropzone.options.myAwesomeDropzone = {#}
+{##}
+{#                autoProcessQueue: false,#}
+{#                uploadMultiple: false,#}
+{#                parallelUploads: 1,#}
+{#                maxFiles: 1,#}
+{#                dictDefaultMessage: "Drop image here to upload - jpg, png",#}
+{##}
+{#                // Dropzone settings#}
+{#                init: function() {#}
+{#                    var myDropzone = this;#}
+{##}
+{#                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {#}
+{#                        e.preventDefault();#}
+{#                        e.stopPropagation();#}
+{#                        myDropzone.processQueue();#}
+{#                    });#}
+{#                    this.on("sendingmultiple", function() {#}
+{#                    });#}
+{#                    this.on("successmultiple", function(files, response) {#}
+{#                    });#}
+{#                    this.on("errormultiple", function(files, response) {#}
+{#                    });#}
+{#                }#}
+{##}
+{#            }#}
+{##}
+{#       });#}
+{#    </script>#}
+
+
 
 {% endblock %}
 
@@ -113,6 +120,7 @@
 {% endblock %}
 
 {% block story-content %}
+    <form method="POST" action="">{% csrf_token %}
     <div class="row">
         <div class="col-lg-7">
             <div class="ibox float-e-margins" align="center">
@@ -151,7 +159,7 @@
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            <select class="chosen-select" style="min-width:265px;" tabindex="1">
+                            <select class="chosen-select" style="min-width:265px;" name='used_to' tabindex="1">
                                 <option value="">I used to work as (position)...</option>
                                 <option value="United States">United States</option>
                                 <option value="United Kingdom">United Kingdom</option>
@@ -170,7 +178,7 @@
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            <select class="chosen-select" style="min-width:265px;" tabindex="2">
+                            <select class="chosen-select" style="min-width:265px;" name='became' tabindex="2">
                                 <option value="">I am working  now (position)...</option>
                                 <option value="United States">United States</option>
                                 <option value="United Kingdom">United Kingdom</option>
@@ -188,7 +196,7 @@
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            <select data-placeholder="Select skills..." class="chosen-select" multiple style="min-width:265px;" tabindex="3">
+                            <select data-placeholder="Select skills..." class="chosen-select" name='skills' multiple style="min-width:265px;" tabindex="3">
                                 <option value="United States">United States</option>
                                 <option value="United Kingdom">United Kingdom</option>
                                 <option value="Afghanistan">Afghanistan</option>
@@ -202,21 +210,21 @@
     </div>
     <div class="ibox float-e-margins">
         <div class="ibox-content no-padding">
-            <div class="summernote">
+            <textarea class="summernote" name="text">
                 <p>My success story text</p>
-            </div>
-
+            </textarea>
         </div>
     </div>
+
+
     <div class="row">
         <div class="col-lg-6">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
-                        <form id="my-awesome-dropzone" class="dropzone" action="#">
-                            <div class="dropzone-previews"></div>
-                            <button type="submit" class="btn btn-primary pull-right">Download avatar!</button>
-                        </form>
+                        <div id="myId dz-av" class="dropzone">
+                            <button type="submit" class="btn btn-success pull-right">Download avatar!</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -225,18 +233,19 @@
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
-                        <form id="my-awesome-dropzone" class="dropzone" action="#">
-                            <div class="dropzone-previews"></div>
-                            <button type="submit" class="btn btn-primary pull-right">Download background!</button>
-                        </form>
+                        <div id="myId dz-bg" class="dropzone">
+                            <button type="submit" class="btn btn-success pull-right">Download background!</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <button type="button" class="btn btn-block btn btn-primary">Publish my success story</button>
-
-
+    <button type="submit" class="btn btn-block btn-success">Publish my success story</button>
+    <a class="btn btn-block btn-success btn-outline" href="/success_story/">Return</a>
+    <br>
+    {{ request.POST }}
+    </form>
 
 {#    <h1>My success story</h1><br/>#}
 {#    <form method="POST" action="">{% csrf_token %}#}
