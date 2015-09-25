@@ -5,7 +5,9 @@ from .models import SuccessStory, Speciality, StackSkills, Advice
 
 
 class SuccessStoryAdmin(admin.ModelAdmin):
-    list_display = ["__unicode__", "author", "used_to", "became", "rate", "created", "updated"]
+    list_display = ["__unicode__", "author",
+                    # "advice",
+                    "used_to", "became", "rate", "created", "updated"]
     form = SuccessStoryForm
     # class Meta:
     #     model = SuccessStory

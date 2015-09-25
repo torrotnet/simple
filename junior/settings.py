@@ -68,7 +68,6 @@ SUMMERNOTE_CONFIG = {
     'height': '480',
     # Use proper language setting automatically (default)
     'lang': 'ru-RU',
-    # 'lang': 'ko-KR',
     'minHeight': 'null',
     'maxHeight': 'null',
 }

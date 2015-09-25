@@ -1,25 +1,28 @@
 {% load staticfiles %}
         <div class="col-lg-6">
-            <div class="widget-head-color-box navy-bg p-lg text-center">
+            <div class="widget-head-color-box navy-bg p-lg text-center" style="background-color:#1a7bb9;">
                 <div class="m-b-md">
                     <h2 class="font-bold no-margins">
-                        Alex Smith
+                        <a style="color: white;" href="/success_story/{{ story.id }}">{{ story.title }}</a>
                     </h2>
-                    <small>Founder of Groupeq</small>
+                    by <em>{{ story.author }}</em>
+                    <p><small> worked as a {{ story.used_to }}, became to work as a {{ story.became }}</small></p>
                 </div>
                 <img src="{% static 'img/a4.jpg' %}" class="img-circle circle-border m-b-md" alt="profile">
                 <div>
-                    <span>100 Tweets</span> |
-                    <span>350 Following</span> |
-                    <span>610 Followers</span>
+                    <span>{{ story.rate }} Story Rate</span>
+{#                    |#}
+{#                    <span>350 Following</span> |#}
+{#                    <span>610 Followers</span>#}
                 </div>
             </div>
             <div class="widget-text-box">
-                <h4 class="media-heading">Alex Smith</h4>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                <h4 class="media-heading">{{ story.author }}:</h4>
+{#                <em><p>{{ story.advice }}</p></em>#}
+                <em><p>Be the best.</p></em>
                 <div class="text-right">
                     <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                    <a class="btn btn-xs btn-primary"><i class="fa fa-heart"></i> Love</a>
+                    <a class="btn btn-xs btn-success"><i class="fa fa-heart"></i> Follow</a>
                 </div>
             </div>
         </div>
