@@ -19,13 +19,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^success_story/$', 'success_story.views.success_story_list', name='success_story_list'),
-    url(r'^success_story/(?P<id>[0-9]+)/$', 'success_story.views.success_story', name='success_story'),
-    url(r'^success_story/new/$', 'success_story.views.success_story_new', name='success_story_new'),
-    url(r'^success_story/new/thank_you$', 'success_story.views.success_story_new_thank_you', name='success_story_new_thank_you'),
+    url(r'^success-story/$', 'success_story.views.success_story_list', name='success_story_list'),
+    url(r'^success-story/(?P<id>[0-9]+)/$', 'success_story.views.success_story', name='success_story'),
+    url(r'^success-story/new/$', 'success_story.views.success_story_new', name='success_story_new'),
+    url(r'^success-story/new/thank_you$', 'success_story.views.success_story_new_thank_you', name='success_story_new_thank_you'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'success_story.views.home', name='home'),
-    url(r'^summernote/', include('django_summernote.urls'))
+    url(r'^summernote/', include('django_summernote.urls')),
+    url(r'^should-know/$', 'should_know.views.should_know_list', name='should_know_list'),
 
 ]
 

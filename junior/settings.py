@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'crispy_forms',
     'success_story',
+    'should_know',
     'django_summernote'
 )
 
