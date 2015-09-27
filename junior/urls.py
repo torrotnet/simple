@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^$', 'success_story.views.home', name='home'),
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^should-know/$', 'should_know.views.should_know_list', name='should_know_list'),
+    url(r'^should-know/person/(?P<id>[0-9]+)/$', 'should_know.views.should_know_person', name='should_know_person'),
+    url(r'^should-know/company/(?P<id>[0-9]+)/$', 'should_know.views.should_know_company', name='should_know_company'),
 
 ]
 

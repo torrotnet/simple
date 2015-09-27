@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block head-css %} {% block head-css-story %}{% endblock %} {% endblock %}
+
+{% block title %}{{ block.super }} Should know{% endblock %}
+
+{% block page-heading %}
+    <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    {% block page-heading-should-know %}{% endblock %}
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+{% endblock %}
+
+{% block content %}
+        <div class="wrapper wrapper-content animated fadeInRight">
+{#            <div class="row">#}
+{#                <div class="col-lg-12">#}
+            {% block should-know-content %}{% endblock %}
+{#                </div>#}
+{#            </div>#}
+        </div>
+{% endblock %}
+
+{% block javascript %}
+{#{% block javascript-story-editor %}#}
+
+{#{% endblock %}#}
+{% endblock %}
