@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Person, Company
+from .models import Person, Company, Portfolio
 
 
 def should_know_list(request):
@@ -29,9 +29,11 @@ def should_know_person(request, id):
 def should_know_company(request, id):
     title = "Should know"
     company = Company.objects.filter(contact_id=id).first()
+    portfolio = Portfolio.objects.filter(company=company).all()
     context = {
         "title": title,
         "company": company,
+        "portfolio": portfolio,
     }
 
     return render(request, "should-know-company-show.html", context)
