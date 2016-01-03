@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Person, Company, Portfolio
+from should_know.forms import PersonForm
 
 
 def should_know_list(request):
@@ -37,3 +38,53 @@ def should_know_company(request, id):
     }
 
     return render(request, "should-know-company-show.html", context)
+
+
+def should_know_person_new(request):
+    title = "Recommend person"
+    form = PersonForm(request.POST or None)
+
+    # specialities = Speciality.objects.all()
+    # stack_skills = StackSkills.objects.all()
+    context = {
+        # "specialities": specialities,
+        # "stack_skills": stack_skills,
+        "title": title,
+        "form": form
+    }
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        # author = form.cleaned_data.get("author")
+        # instance.author = author
+        instance.save()
+        context = {
+            "title": "Your story saved successfully. Thank you!"
+        }
+
+    return render(request, "should-know-person-new.html", context)
+
+
+def should_know_company_new(request):
+    title = "Success story"
+    form = PersonForm(request.POST or None)
+
+    # specialities = Speciality.objects.all()
+    # stack_skills = StackSkills.objects.all()
+    context = {
+        # "specialities": specialities,
+        # "stack_skills": stack_skills,
+        "title": title,
+        "form": form
+    }
+
+    if form.is_valid():
+        instance = form.save(commit=False)
+        # author = form.cleaned_data.get("author")
+        # instance.author = author
+        instance.save()
+        context = {
+            "title": "Your story saved successfully. Thank you!"
+        }
+
+    return render(request, "should-know-person-new.html", context)

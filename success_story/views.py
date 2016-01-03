@@ -53,15 +53,19 @@ def success_story_new(request):
         "title": title,
         "form": form
     }
-
+    print(form.is_valid())
     if form.is_valid():
+        # form.save()
         instance = form.save(commit=False)
+        instance.save()
+        form.save_m2m()
         # author = form.cleaned_data.get("author")
         # instance.author = author
-        instance.save()
+        # instance.save()
         context = {
             "title": "Your story saved succesfully. Thank you!"
         }
+        return render(request, "success_story_new_thank_you.html", context)
 
     return render(request, "success-story-new.html", context)
 
