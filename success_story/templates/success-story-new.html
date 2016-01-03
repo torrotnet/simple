@@ -15,6 +15,8 @@
     <!-- include chosen dropzone-->
     <link href="{% static 'css/plugins/dropzone/basic.css' %}" rel="stylesheet">
     <link href="{% static 'css/plugins/dropzone/dropzone.css' %}" rel="stylesheet">
+    <!-- include my own rules-->
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
 
 {% endblock %}
@@ -32,7 +34,7 @@
                 height: 300,                 // set editor height
                 minHeight: null,             // set minimum height of editor
                 maxHeight: null,             // set maximum height of editor
-                focus: true                 // set focus to editable area after initializing summernote
+                focus: false                 // set focus to editable area after initializing summernote
             });
 
        });
@@ -44,6 +46,15 @@
             $('.click2edit').destroy();
         };
     </script>
+    <script>
+        $('.summernote').on('summernote.focus', function() {
+            $('.note-editor').css('border-color', '#1a7bb9')
+        });
+
+        $('.summernote').on('summernote.blur', function() {
+            $('.note-editor').css('border-color', '#a9a9a9')
+        });
+    </script>
 
     <!-- Chosen -->
     <script src="{%  static 'js/plugins/chosen/chosen.jquery.js' %}"></script>
@@ -54,7 +65,7 @@
                 '.chosen-select-no-single' : {disable_search_threshold:10},
                 '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
                 '.chosen-select-width'     : {width:"95%"}
-                }
+                };
             for (var selector in config) {
                 $(selector).chosen(config[selector]);
             }
@@ -63,43 +74,48 @@
     <!-- DROPZONE -->
     <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>
     <script type="text/javascript">
+
+
         jQuery(document).ready(function()
         {
-            var myDropzone_av = new Dropzone("div#myId-av", { url: "file-upload-av"});
-            var myDropzone_bg = new Dropzone("div#myId-bg", { url: "file-upload-bg"});
+            $("div#id_img_avatar1").dropzone({ url: "/" });
+            //$("input#id_img_avatar").dropzone({ url: "/file/post" });
+            //var myDropzone_av = new Dropzone("div#myId-av", { url: "file-upload-av"});
+            //var myDropzone_av1 = new Dropzone("input#id_img_avatar", { url: "file-upload-av"});
+            var myDropzone_bg = new Dropzone("div#myId-bg", { url: "/"});
         });
     </script>
-{#    <script>#}
-{#        $(document).ready(function(){#}
-{#            Dropzone.options.myAwesomeDropzone = {#}
-{##}
-{#                autoProcessQueue: false,#}
-{#                uploadMultiple: false,#}
-{#                parallelUploads: 1,#}
-{#                maxFiles: 1,#}
-{#                dictDefaultMessage: "Drop image here to upload - jpg, png",#}
-{##}
-{#                // Dropzone settings#}
-{#                init: function() {#}
-{#                    var myDropzone = this;#}
-{##}
-{#                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {#}
-{#                        e.preventDefault();#}
-{#                        e.stopPropagation();#}
-{#                        myDropzone.processQueue();#}
-{#                    });#}
-{#                    this.on("sendingmultiple", function() {#}
-{#                    });#}
-{#                    this.on("successmultiple", function(files, response) {#}
-{#                    });#}
-{#                    this.on("errormultiple", function(files, response) {#}
-{#                    });#}
-{#                }#}
-{##}
-{#            }#}
-{##}
-{#       });#}
-{#    </script>#}
+    <script>
+        $(document).ready(function(){
+            Dropzone.options.myAwesomeDropzone = {
+
+                autoProcessQueue: false,
+                uploadMultiple: false,
+                parallelUploads: 1,
+                maxFiles: 1,
+                dictDefaultMessage: "Drop image here to upload - jpg, png",
+
+                // Dropzone settings
+                init: function() {
+                    var myDropzone = this;
+
+                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+                    this.on("sendingmultiple", function() {
+                    });
+                    this.on("successmultiple", function(files, response) {
+                    });
+                    this.on("errormultiple", function(files, response) {
+                    });
+                }
+
+            }
+
+       });
+    </script>
 
 
 
@@ -126,19 +142,14 @@
         <div class="col-lg-7">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
-                    {#                    <input type="text" placeholder="Story title..." style='display:table-cell; width:100%'>#}
-                    <input class="textinput textInput form-control" id="id_title" maxlength="100" name="title" type="text" placeholder="Story title..." >
-                    {#                    {{ form|crispy }}#}
+                    {{ form.title }}
                 </div>
             </div>
         </div>
         <div class="col-lg-5">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
-                    {#                    <div style="float: left">by</div>#}
-                    {#                    <input type="text" placeholder="Story title..." style='display:table-cell; width:100%'>#}
-                    <input class="textinput textInput form-control" id="id_author" maxlength="100" name="author" type="text" placeholder="Story author..." >
-                    {#                    {{ form|crispy }}#}
+                    {{ form.author }}
                 </div>
             </div>
         </div>
@@ -147,9 +158,7 @@
 {#        <div class="col-lg-12">#}
 {#            <div class="ibox float-e-margins" align="center">#}
 {#                <div class="ibox-content">#}
-                    {#                    <input type="text" placeholder="Story title..." style='display:table-cell; width:100%'>#}
-{#                    <input class="textinput textInput form-control" id="id_advice" maxlength="100" name="advice" type="text" placeholder="My advice..." >#}
-                    {#                    {{ form|crispy }}#}
+{#                    {{ form.advice }}#}
 {#                </div>#}
 {#            </div>#}
 {#        </div>#}
@@ -160,13 +169,7 @@
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            <select class="chosen-select" style="min-width:265px;" id="id_used_to" name='used_to' tabindex="1">
-                                <option value="">I used to work as (position)...</option>
-                                {% for spec in specialities %}
-                                    <option value="{{ spec.id }}">{{ spec.spec_title }}</option>
-                                {% endfor %}
-
-                            </select>
+                            {{ form.used_to }}
                         </div>
                     </div>
                 </div>
@@ -178,12 +181,7 @@
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            <select class="chosen-select" style="min-width:265px;" id="id_became" name='became' tabindex="2">
-                                <option value="">I am working  now (position)...</option>
-                                {% for spec in specialities %}
-                                    <option value="{{ spec.id }}">{{ spec.spec_title }}</option>
-                                {% endfor %}
-                            </select>
+                            {{ form.became }}
                         </div>
                     </div>
                 </div>
@@ -194,11 +192,7 @@
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            <select data-placeholder="Select skills..." class="chosen-select" id="id_stack_skills" name='stack_skills' multiple style="min-width:265px;" tabindex="3">
-                                {% for skill in stack_skills %}
-                                    <option value="{{ skill.id }}">{{ skill.skill }}</option>
-                                {% endfor %}
-                            </select>
+                            {{ form.stack_skills }}
                         </div>
                     </div>
                 </div>
@@ -207,42 +201,42 @@
     </div>
     <div class="ibox float-e-margins">
         <div class="ibox-content no-padding">
-            <textarea class="summernote" name="text">
-                <p>My success story text</p>
-            </textarea>
+            {{ form.text }}
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="ibox float-e-margins" align="center">
-                <div class="ibox-content">
-                    <div class="form-group" style="margin-bottom: 0px;">
-                        <div id="myId-av" class="dropzone">
-                            <input type="text" name="img-av" id="img-bg" hidden>
-                            <button type="submit" class="btn btn-success pull-right">Download avatar!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <div class="ibox float-e-margins" align="center">
-                <div class="ibox-content">
-                    <div class="form-group" style="margin-bottom: 0px;">
-                        <div id="myId-bg" class="dropzone">
-                            <input type="text" name="img-bg" id="img-bg" hidden>
-                            <button type="submit" class="btn btn-success pull-right">Download background!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{#    <div class="row">#}
+{#        <div class="col-lg-6">#}
+{#            <div class="ibox float-e-margins" align="center">#}
+{#                <div class="ibox-content">#}
+{#                    <div class="form-group" style="margin-bottom: 0px;">#}
+{#                        {{ form.img_avatar }}#}
+{#                        <div id="id_img_avatar1" class="dropzone">#}
+{#                            <input type="file" name="img_avatar" id="id_img_avatar" style="display: none">#}
+{#                            <button type="submit" class="btn btn-success pull-right">Download avatar!</button>#}
+{#                        </div>#}
+{##}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="col-lg-6">#}
+{#            <div class="ibox float-e-margins" align="center">#}
+{#                <div class="ibox-content">#}
+{#                    <div class="form-group" style="margin-bottom: 0px;">#}
+{#                        {{ form.img_background }}#}
+{#                        <div id="myId-bg" class="dropzone">#}
+{#                            <input type="text" name="img_background" id="id_img_background" hidden>#}
+{#                            <button type="submit" class="btn btn-success pull-right">Download background!</button>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
     <button type="submit" class="btn btn-block btn-success">Publish my success story</button>
     <a class="btn btn-block btn-success btn-outline" href="/success-story/">Return</a>
     <br>
     </form>
-
 {#    <h1>My success story</h1><br/>#}
 {#    <form method="POST" action="">{% csrf_token %}#}
 {##}
@@ -259,5 +253,13 @@
 {#    {{ form.is_valid }}#}
 {#    {{ form }}#}
 
-
+<style>
+.form-control:focus,
+.single-line:focus,
+.chosen-container-active > .chosen-single, .chosen-drop,
+.chosen-choices:focus
+{
+  border-color: #1a7bb9 !important;
+}
+</style>
 {% endblock %}
