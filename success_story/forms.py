@@ -31,7 +31,7 @@ class SuccessStoryForm(forms.ModelForm):
         widgets = {
             # 'text': SummernoteWidget(attrs={'width': '100%', 'height': '500px'}),
             # 'text': SummernoteInplaceWidget(attrs={'width': '100%', 'height': '500px'}),
-            'title': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story title...'}),
+            'title': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story title...', 'autofocus': 'autofocus'}),
             'author': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story author...'}),
             # 'advice': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'My advice...'}),
 
@@ -52,10 +52,10 @@ class SuccessStoryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(SuccessStoryForm, self).__init__(*args, **kwargs)
-        # self.fields['used_to'].empty_label = "I used to work as (position)..."
+        self.fields['used_to'].empty_label = "I used to work as (position)..."
     #    # following line needed to refresh widget copy of choice list
         # self.fields['used_to'].widget.choices = self.fields['used_to'].choices
-        # self.fields['became'].empty_label = "I am working  now (position)..."
+        self.fields['became'].empty_label = "I am working  now (position)..."
         # self.fields['became'].widget.choices = self.fields['became'].choices
         # self.fields['stack_skills'].empty_label = "Select using skills..."
         # self.fields['stack_skills'].widget.choices = self.fields['stack_skills'].choices
