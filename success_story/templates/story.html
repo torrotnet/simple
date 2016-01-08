@@ -1,21 +1,24 @@
 {% load staticfiles %}
         <div class="col-lg-4">
-            <div class="widget-head-color-box navy-bg p-lg text-center" style="background-color:#1a7bb9;">
+            <div class="widget-head-color-box navy-bg p-lg text-center" style="background-color:#1a7bb9; cursor: pointer;"
+                 onclick="window.location='/success-story/{{ story.id }}';">
                 <div class="m-b-md">
-                    <h2 class="font-bold no-margins">
-                        <a style="color: white;" href="/success_story/{{ story.id }}">{{ story.title }}</a>
+                    <h2 class="font-bold no-margins" style="overflow: hidden; height: 27px;">
+                        <a style="color: white;" href="/success-story/{{ story.id }}" title="{{ story.title }}">{{ story.title }}</a>
                     </h2>
                     by <em>{{ story.author }}</em>
                     <p><small> worked as a {{ story.used_to }}, became to work as a {{ story.became }}</small></p>
                 </div>
                 <img src="{% static 'img/a4.jpg' %}" class="img-circle circle-border m-b-md" alt="profile">
                 <div>
-{#                    <span>{{ story.rate }} Story Rate</span>#}
-{#                    |#}
-{#                    <span>350 Following</span> |#}
-{#                    <span>610 Followers</span>#}
+                    {#                    <span>{{ story.rate }} Story Rate</span>#}
+                    {#                    |#}
+                    {#                    <span>350 Following</span> |#}
+                    {#                    <span>610 Followers</span>#}
                 </div>
+
             </div>
+
             <div class="widget-text-box">
                 <h4 class="media-heading">{{ story.author }}:</h4>
 {#                <em><p>{{ story.advice }}</p></em>#}
