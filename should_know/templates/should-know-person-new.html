@@ -1,0 +1,116 @@
+{% extends "should-know.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block head-css-story %}
+    <!-- include libraries(jQuery, bootstrap, fontawesome) -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- include chosen css-->
+    <link href="{% static 'css/plugins/chosen/chosen.css' %}" rel="stylesheet">
+    <!-- include chosen dropzone-->
+    <link href="{% static 'css/plugins/dropzone/basic.css' %}" rel="stylesheet">
+    <link href="{% static 'css/plugins/dropzone/dropzone.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block javascript-story-editor %}
+    <!-- Chosen -->
+    <script src="{%  static 'js/plugins/chosen/chosen.jquery.js' %}"></script>
+    <script>
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+                }
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+    </script>
+
+    <!-- DROPZONE -->
+    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function()
+        {
+            var myDropzone = new Dropzone("div#myId", { url: "file-upload-photo"});
+        });
+    </script>
+{% endblock %}
+
+{% block page-heading-should-know %}
+                    <h2>Text Editor</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a>Forms</a>
+                        </li>
+                        <li class="active">
+                            <strong>Text Editor</strong>
+                        </li>
+                    </ol>
+{% endblock %}
+
+{% block should-know-content %}
+    <form method="POST" action="">{% csrf_token %}
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    {#                    <input type="text" placeholder="Story title..." style='display:table-cell; width:100%'>#}
+                    <input class="textinput textInput form-control" id="id_name" maxlength="100" name="name" type="text" placeholder="Person name..." >
+                    {#                    {{ form|crispy }}#}
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <input class="textinput textInput form-control" id="id_description" name="desctiption" type="text" placeholder="About person..." >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="form-group" style="margin-bottom: 0px;">
+                        <div id="myId" class="dropzone" style="height: 205px">
+                            <input type="text" name="img" id="id_img" hidden>
+                            <button type="submit" class="btn btn-success pull-right">Download photo!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <input class="textinput textInput form-control" id="id_email" maxlength="100" name="email" type="text" placeholder="Email..." >
+                    <input class="textinput textInput form-control" id="id_skype" maxlength="100" name="skype" type="text" placeholder="Skype..." >
+                    <input class="textinput textInput form-control" id="id_twitter" maxlength="100" name="twitter" type="text" placeholder="Twitter..." >
+                    <input class="textinput textInput form-control" id="id_facebook" maxlength="100" name="facebook" type="text" placeholder="Facebook..." >
+                    <input class="textinput textInput form-control" id="id_vk" maxlength="100" name="vk" type="text" placeholder="VK..." >
+                    <input class="textinput textInput form-control" id="id_tel" maxlength="100" name="tel" type="text" placeholder="Tel..." >
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-block btn-success">Recommend person</button>
+    <a class="btn btn-block btn-success btn-outline" href="/should-know/">Return</a>
+    <br>
+    </form>
+
+    {{ form.data }}
+    {{ form.is_valid }}
+    {{ form }}
+
+
+{% endblock %}
