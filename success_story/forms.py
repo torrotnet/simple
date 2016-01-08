@@ -41,14 +41,13 @@ class SuccessStoryForm(forms.ModelForm):
             'stack_skills': SelectMultiple(attrs={'class': 'chosen-select', 'style': 'min-width: 265px',
                                                   'tabindex': '0',
                                                   'data-placeholder': "Select skills..."}),
-            'text': Textarea(attrs={'class': 'summernote'}),
+            'text': Textarea(attrs={'class': 'summernote', 'required': 'True'}),
             # 'img_avatar': TextInput(attrs={
                 # "class": "dropzone"
                 # 'class': 'dropzone dz-clickable'
             # })
 
         }
-
 
     def __init__(self, *args, **kwargs):
         super(SuccessStoryForm, self).__init__(*args, **kwargs)

@@ -28,23 +28,25 @@
     <script src="{% static 'js/plugins/summernote/lang/summernote-ru-RU.js' %}"></script>
     <script>
         $(document).ready(function(){
-
             $('.summernote').summernote({
                 lang: 'ru-RU',
                 height: 300,                 // set editor height
                 minHeight: null,             // set minimum height of editor
                 maxHeight: null,             // set maximum height of editor
-                focus: false                 // set focus to editable area after initializing summernote
+                focus: false                // set focus to editable area after initializing summernote
             });
+            if ($('.summernote').summernote('isEmpty')) {
+                $('.summernote').summernote('editor.insertText', 'Start typing your story here...');
+            }
 
        });
-        var edit = function() {
-            $('.click2edit').summernote({focus: true});
-        };
-        var save = function() {
-            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-            $('.click2edit').destroy();
-        };
+{#        var edit = function() {#}
+{#            $('.click2edit').summernote({focus: true});#}
+{#        };#}
+{#        var save = function() {#}
+{#            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).#}
+{#            $('.click2edit').destroy();#}
+{#        };#}
     </script>
     <script>
         $('.summernote').on('summernote.focus', function() {
@@ -72,53 +74,58 @@
     </script>
 
     <!-- DROPZONE -->
-    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>
+{#    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>#}
     <script type="text/javascript">
-
-
-        jQuery(document).ready(function()
-        {
-            $("div#id_img_avatar1").dropzone({ url: "/" });
-            //$("input#id_img_avatar").dropzone({ url: "/file/post" });
-            //var myDropzone_av = new Dropzone("div#myId-av", { url: "file-upload-av"});
-            //var myDropzone_av1 = new Dropzone("input#id_img_avatar", { url: "file-upload-av"});
-            var myDropzone_bg = new Dropzone("div#myId-bg", { url: "/"});
-        });
+{##}
+{##}
+{#        jQuery(document).ready(function()#}
+{#        {#}
+{#            $("div#id_img_avatar1").dropzone({ url: "/" });#}
+{#            //$("input#id_img_avatar").dropzone({ url: "/file/post" });#}
+{#            //var myDropzone_av = new Dropzone("div#myId-av", { url: "file-upload-av"});#}
+{#            //var myDropzone_av1 = new Dropzone("input#id_img_avatar", { url: "file-upload-av"});#}
+{#            var myDropzone_bg = new Dropzone("div#myId-bg", { url: "/"});#}
+{#        });#}
     </script>
     <script>
-        $(document).ready(function(){
-            Dropzone.options.myAwesomeDropzone = {
-
-                autoProcessQueue: false,
-                uploadMultiple: false,
-                parallelUploads: 1,
-                maxFiles: 1,
-                dictDefaultMessage: "Drop image here to upload - jpg, png",
-
-                // Dropzone settings
-                init: function() {
-                    var myDropzone = this;
-
-                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        myDropzone.processQueue();
-                    });
-                    this.on("sendingmultiple", function() {
-                    });
-                    this.on("successmultiple", function(files, response) {
-                    });
-                    this.on("errormultiple", function(files, response) {
-                    });
-                }
-
-            }
-
-       });
+{#        $(document).ready(function(){#}
+{#            Dropzone.options.myAwesomeDropzone = {#}
+{##}
+{#                autoProcessQueue: false,#}
+{#                uploadMultiple: false,#}
+{#                parallelUploads: 1,#}
+{#                maxFiles: 1,#}
+{#                dictDefaultMessage: "Drop image here to upload - jpg, png",#}
+{##}
+{#                // Dropzone settings#}
+{#                init: function() {#}
+{#                    var myDropzone = this;#}
+{##}
+{#                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {#}
+{#                        e.preventDefault();#}
+{#                        e.stopPropagation();#}
+{#                        myDropzone.processQueue();#}
+{#                    });#}
+{#                    this.on("sendingmultiple", function() {#}
+{#                    });#}
+{#                    this.on("successmultiple", function(files, response) {#}
+{#                    });#}
+{#                    this.on("errormultiple", function(files, response) {#}
+{#                    });#}
+{#                }#}
+{##}
+{#            }#}
+{##}
+{#       });#}
     </script>
-
-
-
+    <script>
+    //    if ($('.summernote').summernote('isEmpty')) {
+    //      alert('contents is empty');
+    //    }
+    </script>
+    <script>
+        $('.note-editable').css('height', '300px')
+    </script>
 {% endblock %}
 
 {% block page-heading-story %}
@@ -143,13 +150,24 @@
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
                     {{ form.title }}
+                    {% if form.errors.title %}
+                        <p style="color: #1a7bb9; margin: 0;" align="left">
+                            {{ form.errors.title.as_text }}
+                        </p>
+                    {% endif %}
                 </div>
+
             </div>
         </div>
         <div class="col-lg-5">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
                     {{ form.author }}
+                    {% if form.errors.author %}
+                        <p style="color: #1a7bb9; margin: 0;" align="left">
+                            {{ form.errors.author.as_text }}
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -159,6 +177,11 @@
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
                     {{ form.advice }}
+                    {% if form.errors.advice %}
+                        <p style="color: #1a7bb9; margin: 0;" align="left">
+                            {{ form.errors.advice.as_text }}
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -170,6 +193,11 @@
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
                             {{ form.used_to }}
+                            {% if form.errors.used_to %}
+                                <p style="color: #1a7bb9; margin: 0;" align="left">
+                                    {{ form.errors.used_to.as_text }}
+                                </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -182,6 +210,11 @@
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
                             {{ form.became }}
+                            {% if form.errors.became %}
+                                <p style="color: #1a7bb9; margin: 0;" align="left">
+                                    {{ form.errors.became.as_text }}
+                                </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -193,6 +226,11 @@
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
                             {{ form.stack_skills }}
+                            {% if form.errors.stack_skills %}
+                                <p style="color: #1a7bb9; margin: 0;" align="left">
+                                    {{ form.errors.stack_skills.as_text }}
+                                </p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
