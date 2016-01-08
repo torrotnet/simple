@@ -25,6 +25,7 @@ class SuccessStory(models.Model):
     title = models.CharField(max_length=100)
     text = models.TextField()
     author = models.CharField(max_length=100)
+    advice = models.CharField(max_length=140, blank=True, default='')
     img_avatar = models.ImageField(null=True, blank=True)
     img_background = models.ImageField(null=True, blank=True)
     stack_skills = models.ManyToManyField(StackSkills, blank=True)
@@ -38,9 +39,9 @@ class SuccessStory(models.Model):
         return self.title
 
 
-class Advice(models.Model):
-    success_story = models.ForeignKey(SuccessStory)
-    text = models.CharField(max_length=200)
-
-    def __unicode__(self):
-        return "Advices for %s story" % self.id
+# class Advice(models.Model):
+#     success_story = models.ForeignKey(SuccessStory)
+#     text = models.CharField(max_length=200)
+#
+#     def __unicode__(self):
+#         return "Advices for %s story" % self.id

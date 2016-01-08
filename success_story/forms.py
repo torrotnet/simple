@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms import TextInput, Select, Textarea, FileInput, ClearableFileInput, HiddenInput, SelectMultiple
 from django.utils.encoding import smart_unicode
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
-from .models import SuccessStory, Speciality, StackSkills, Advice
+from .models import SuccessStory, Speciality, StackSkills
 
 
 # class SuccessStoryTextForm(forms.ModelForm):
@@ -22,7 +22,7 @@ class SuccessStoryForm(forms.ModelForm):
     class Meta:
         model = SuccessStory
         fields = ["title", "text", "author",
-                  # "advice",
+                  "advice",
                   # "img_avatar",
                   # "img_background",
                   "stack_skills",
@@ -33,7 +33,7 @@ class SuccessStoryForm(forms.ModelForm):
             # 'text': SummernoteInplaceWidget(attrs={'width': '100%', 'height': '500px'}),
             'title': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story title...', 'autofocus': 'autofocus'}),
             'author': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story author...'}),
-            # 'advice': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'My advice...'}),
+            'advice': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'My advice...'}),
 
             'used_to': Select(attrs={'class': 'chosen-select', 'style': 'min-width: 265px', 'tabindex': '0'}),
             'became': Select(attrs={'class': 'chosen-select', 'style': 'min-width: 265px', 'tabindex': '0'}),
@@ -57,7 +57,7 @@ class SuccessStoryForm(forms.ModelForm):
         # self.fields['used_to'].widget.choices = self.fields['used_to'].choices
         self.fields['became'].empty_label = "I am working  now (position)..."
         # self.fields['became'].widget.choices = self.fields['became'].choices
-        # self.fields['stack_skills'].empty_label = "Select using skills..."
+        self.fields['stack_skills'].empty_label = "Select using skills..."
         # self.fields['stack_skills'].widget.choices = self.fields['stack_skills'].choices
 
     # def clean_author(self):
@@ -96,8 +96,8 @@ class SpecialityForm(forms.ModelForm):
         fields = ["spec_title"]
 
 
-class AdviceForm(forms.ModelForm):
-
-    class Meta:
-        model = Advice
-        fields = ["text"]
+# class AdviceForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = Advice
+#         fields = ["text"]

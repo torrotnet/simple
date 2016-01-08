@@ -20,12 +20,24 @@
             </div>
 
             <div class="widget-text-box">
-                <h4 class="media-heading">{{ story.author }}:</h4>
-{#                <em><p>{{ story.advice }}</p></em>#}
-                <em><p>Be the best.</p></em>
-                <div class="text-right">
-                    <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                    <a class="btn btn-xs btn-success"><i class="fa fa-heart"></i> Follow</a>
+                <div class="row">
+                    <div class="col-lg-8">
+                        {% if story.advice %}
+
+                            <h4 class="media-heading">{{ story.author }}:</h4>
+                            <em><p>{{ story.advice }}</p></em>
+            {#                <em><p>Be the best.</p></em>#}
+                        {% else %}
+                            <h4 class="media-heading">{{ story.author }}:</h4>
+                            <em><p>I will give my advice soon...</p></em>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="text-right">
+                            <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                            <a class="btn btn-xs btn-success"><i class="fa fa-heart"></i> Follow</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
