@@ -46,7 +46,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     'django_summernote',
     'success_story',
-    'django_summernote'
+    'should_know'
 )
 
 MIDDLEWARE_CLASSES = (
