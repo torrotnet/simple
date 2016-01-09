@@ -31,9 +31,9 @@ class SuccessStoryForm(forms.ModelForm):
         widgets = {
             # 'text': SummernoteWidget(attrs={'width': '100%', 'height': '500px'}),
             # 'text': SummernoteInplaceWidget(attrs={'width': '100%', 'height': '500px'}),
-            'title': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story title...', 'autofocus': 'autofocus'}),
-            'author': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story author...'}),
-            'advice': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'My advice...'}),
+            'title': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Story title...', 'autofocus': 'autofocus'}),
+            'author': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Story author...'}),
+            'advice': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'My advice...'}),
 
             'used_to': Select(attrs={'class': 'chosen-select', 'style': 'min-width: 265px', 'tabindex': '0'}),
             'became': Select(attrs={'class': 'chosen-select', 'style': 'min-width: 265px', 'tabindex': '0'}),
@@ -41,7 +41,7 @@ class SuccessStoryForm(forms.ModelForm):
             'stack_skills': SelectMultiple(attrs={'class': 'chosen-select', 'style': 'min-width: 265px',
                                                   'tabindex': '0',
                                                   'data-placeholder': "Select skills..."}),
-            'text': Textarea(attrs={'class': 'summernote', 'required': 'True'}),
+            'text': Textarea(attrs={'class': 'summernote form-control border-color-focus'}),
             # 'img_avatar': TextInput(attrs={
                 # "class": "dropzone"
                 # 'class': 'dropzone dz-clickable'
@@ -76,9 +76,6 @@ class SuccessStoryForm(forms.ModelForm):
     # def clean_stack_skills(self):
     #     print self.cleaned_data.get("stack_skills")
     #     return self.cleaned_data.get("stack_skills") or "1"
-
-
-
 
 
 class StackSkillsForm(forms.ModelForm):
