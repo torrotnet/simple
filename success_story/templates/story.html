@@ -1,28 +1,43 @@
 {% load staticfiles %}
         <div class="col-lg-4">
-            <div class="widget-head-color-box navy-bg p-lg text-center" style="background-color:#1a7bb9;">
-                <div class="m-b-md">
-                    <h2 class="font-bold no-margins">
-                        <a style="color: white;" href="/success-story/{{ story.id }}">{{ story.title }}</a>
+            <div class="widget-head-color-box navy-bg p-lg text-center" style="background-color:#fff; cursor: pointer; color: #676a6c"
+                 onclick="window.location='/success-story/{{ story.id }}';">
+                <div class="m-b-md" style="color: #676a6c">
+                    <h2 class="font-bold no-margins" style="overflow: hidden; height: 27px; color: #676a6c;">
+                        <a style="color: #676a6c" href="/success-story/{{ story.id }}" title="{{ story.title }}">{{ story.title }}</a>
                     </h2>
                     by <em>{{ story.author }}</em>
-                    <p><small> worked as a {{ story.used_to }}, became to work as a {{ story.became }}</small></p>
+                    <p><small style="color: #676a6c;"> worked as a {{ story.used_to }}, became to work as a {{ story.became }}</small></p>
                 </div>
                 <img src="{% static 'img/a4.jpg' %}" class="img-circle circle-border m-b-md" alt="profile">
-                <div>
-{#                    <span>{{ story.rate }} Story Rate</span>#}
-{#                    |#}
-{#                    <span>350 Following</span> |#}
-{#                    <span>610 Followers</span>#}
+                <div style="color: #676a6c">
+{#                                        <span>{{ story.rate }} Story Rate</span>#}
+{#                                        |#}
+                                        <span>350 Following</span> |
+                                        <span>610 Followers</span>
                 </div>
+
             </div>
+
             <div class="widget-text-box">
-                <h4 class="media-heading">{{ story.author }}:</h4>
-{#                <em><p>{{ story.advice }}</p></em>#}
-                <em><p>Be the best.</p></em>
-                <div class="text-right">
-                    <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-                    <a class="btn btn-xs btn-success"><i class="fa fa-heart"></i> Follow</a>
+                <div class="row">
+                    <div class="col-lg-8">
+                        {% if story.advice %}
+
+                            <h4 class="media-heading">{{ story.author }}:</h4>
+                            <em><p>{{ story.advice }}</p></em>
+            {#                <em><p>Be the best.</p></em>#}
+                        {% else %}
+                            <h4 class="media-heading">{{ story.author }}:</h4>
+                            <em><p>I will give my advice soon...</p></em>
+                        {% endif %}
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="text-right">
+                            <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
+                            <a class="btn btn-xs btn-success" style="background-color: #676a6c; border-color: #676a6c;"><i class="fa fa-heart"></i> Follow</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

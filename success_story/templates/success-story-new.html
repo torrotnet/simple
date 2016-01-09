@@ -15,6 +15,8 @@
     <!-- include chosen dropzone-->
     <link href="{% static 'css/plugins/dropzone/basic.css' %}" rel="stylesheet">
     <link href="{% static 'css/plugins/dropzone/dropzone.css' %}" rel="stylesheet">
+    <!-- include formValidation css-->
+    <link href="{% static 'css/plugins/formValidation/formValidation.min.css' %}" rel="stylesheet">
     <!-- include my own rules-->
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
@@ -28,22 +30,27 @@
     <script src="{% static 'js/plugins/summernote/lang/summernote-ru-RU.js' %}"></script>
     <script>
         $(document).ready(function(){
+{#            $('.summernote').summernote({#}
+{#                lang: 'ru-RU',#}
+{#                height: 300,                 // set editor height#}
+{#                minHeight: null,             // set minimum height of editor#}
+{#                maxHeight: null,             // set maximum height of editor#}
+{#                focus: false                // set focus to editable area after initializing summernote#}
+{#            });#}
 
-            $('.summernote').summernote({
-                lang: 'ru-RU',
-                height: 300,                 // set editor height
-                minHeight: null,             // set minimum height of editor
-                maxHeight: null,             // set maximum height of editor
-                focus: false                 // set focus to editable area after initializing summernote
-            });
+{#            if ($('.summernote').summernote('isEmpty')) {#}
+{#                $('.summernote').summernote('editor.insertText', 'Start typing your story here...');#}
+{#            }#}
 
-       });
-        var edit = function() {
-            $('.click2edit').summernote({focus: true});
-        };
-        var save = function() {
-            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).
-            $('.click2edit').destroy();
+{#       });#}
+
+
+{#        var edit = function() {#}
+{#            $('.click2edit').summernote({focus: true});#}
+{#        };#}
+{#        var save = function() {#}
+{#            var aHTML = $('.click2edit').code(); //save HTML If you need(aHTML: array).#}
+{#            $('.click2edit').destroy();#}
         };
     </script>
     <script>
@@ -72,53 +79,166 @@
     </script>
 
     <!-- DROPZONE -->
-    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>
+{#    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>#}
     <script type="text/javascript">
-
-
-        jQuery(document).ready(function()
-        {
-            $("div#id_img_avatar1").dropzone({ url: "/" });
-            //$("input#id_img_avatar").dropzone({ url: "/file/post" });
-            //var myDropzone_av = new Dropzone("div#myId-av", { url: "file-upload-av"});
-            //var myDropzone_av1 = new Dropzone("input#id_img_avatar", { url: "file-upload-av"});
-            var myDropzone_bg = new Dropzone("div#myId-bg", { url: "/"});
-        });
+{##}
+{##}
+{#        jQuery(document).ready(function()#}
+{#        {#}
+{#            $("div#id_img_avatar1").dropzone({ url: "/" });#}
+{#            //$("input#id_img_avatar").dropzone({ url: "/file/post" });#}
+{#            //var myDropzone_av = new Dropzone("div#myId-av", { url: "file-upload-av"});#}
+{#            //var myDropzone_av1 = new Dropzone("input#id_img_avatar", { url: "file-upload-av"});#}
+{#            var myDropzone_bg = new Dropzone("div#myId-bg", { url: "/"});#}
+{#        });#}
     </script>
     <script>
-        $(document).ready(function(){
-            Dropzone.options.myAwesomeDropzone = {
-
-                autoProcessQueue: false,
-                uploadMultiple: false,
-                parallelUploads: 1,
-                maxFiles: 1,
-                dictDefaultMessage: "Drop image here to upload - jpg, png",
-
-                // Dropzone settings
-                init: function() {
-                    var myDropzone = this;
-
-                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        myDropzone.processQueue();
-                    });
-                    this.on("sendingmultiple", function() {
-                    });
-                    this.on("successmultiple", function(files, response) {
-                    });
-                    this.on("errormultiple", function(files, response) {
-                    });
-                }
-
-            }
-
-       });
+{#        $(document).ready(function(){#}
+{#            Dropzone.options.myAwesomeDropzone = {#}
+{##}
+{#                autoProcessQueue: false,#}
+{#                uploadMultiple: false,#}
+{#                parallelUploads: 1,#}
+{#                maxFiles: 1,#}
+{#                dictDefaultMessage: "Drop image here to upload - jpg, png",#}
+{##}
+{#                // Dropzone settings#}
+{#                init: function() {#}
+{#                    var myDropzone = this;#}
+{##}
+{#                    this.element.querySelector("button[type=submit]").addEventListener("click", function(e) {#}
+{#                        e.preventDefault();#}
+{#                        e.stopPropagation();#}
+{#                        myDropzone.processQueue();#}
+{#                    });#}
+{#                    this.on("sendingmultiple", function() {#}
+{#                    });#}
+{#                    this.on("successmultiple", function(files, response) {#}
+{#                    });#}
+{#                    this.on("errormultiple", function(files, response) {#}
+{#                    });#}
+{#                }#}
+{##}
+{#            }#}
+{##}
+{#       });#}
     </script>
 
+    <script>
+        $('.note-editable').css('height', '300px')
+    </script>
+    <script src="{%  static 'js/plugins/formValidation/formValidation.min.js' %}"></script>
+    <script src="{%  static 'js/plugins/formValidation/bootstrap.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#successStoryForm')
+                .formValidation({
+                    framework: 'bootstrap',
+                    excluded: [':disabled'],
+                    icon: {
+                        valid: 'glyphicon glyphicon-ok validation-icon',
+                        invalid: 'glyphicon glyphicon-remove validation-icon',
+                        validating: 'glyphicon glyphicon-refresh validation-icon'
+                    },
+                    fields: {
+                        title: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The title is required and cannot be empty'
+                                }
+                            }
+                        },
+                        author: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The author is required and cannot be empty'
+                                }
+                            }
+                        },
+                        advice: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The advice is required and cannot be empty'
+                                }
+                            }
+                        },
+                        text: {
+                            validators: {
+                                callback: {
+                                    message: 'The content is required and cannot be empty',
+                                    callback: function (value, validator, $field) {
+                                        var code = $('[name="text"]').code();
+                                        // <p><br></p> is code generated by Summernote for empty content
+                                        return (code !== '' && code !== '<p><br></p>');
+                                    }
+                                }
+                            }
+                        },
+                        used_to: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The used_to is required and cannot be empty'
+                                }
+                            }
+                        },
+                        became: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'The became is required and cannot be empty'
+                                }
+                            }
+                        },
+                        stack_skills: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Skills are required and cannot be empty'
+                                }
+                            }
+                        }
+                    }
+                        {#                        text: {#}
+                        {#                            validators: {#}
+                        {#                                callback: {#}
+                        {#                                    message: 'The text is required and cannot be empty',#}
+                        {#                                    callback: function(value, validator, $field) {#}
+                        {#                                        var code = $('[name="text"]').code();#}
+                        {#                                        // <p><br></p> is code generated by Summernote for empty content#}
+                        {#                                        return (code !== '' && code !== '<p><br></p>');#}
+                        {#                                    }#}
+                        {#                                }#}
+                        {#                            }#}
+                        {#                        }#}
 
+                })
 
+                .find('[name="text"]')
+                .summernote({
+                    lang: 'ru-RU',
+                    height: 300,                 // set editor height
+                    minHeight: null,             // set minimum height of editor
+                    maxHeight: null,             // set maximum height of editor
+                    focus: false                // set focus to editable area after initializing summernote
+                })
+                .on('summernote.change', function (customEvent, contents, $editable) {
+                    // Revalidate the content when its value is changed by Summernote
+                    $('#successStoryForm').formValidation('revalidateField', 'text');
+                })
+                .end()
+                {#        });#}
+                {#</script>#}
+                .on('err.field.fv', function (e, data) {
+                    // $(e.target)  --> The field element
+                    // data.fv      --> The FormValidation instance
+                    // data.field   --> The field name
+                    // data.element --> The field element
+
+                    // Hide the messages
+                    data.element
+                        .data('fv.messages')
+                        .find('.help-block[data-fv-for="' + data.field + '"]').hide();
+                });
+        })
+    </script>
 {% endblock %}
 
 {% block page-heading-story %}
@@ -137,39 +257,68 @@
 {% endblock %}
 
 {% block story-content %}
-    <form method="POST" action="">{% csrf_token %}
+    <form method="POST" action="" id="successStoryForm">{% csrf_token %}
     <div class="row">
         <div class="col-lg-7">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
-                    {{ form.title }}
+                    <div class="form-group">
+                        {{ form.title }}
+                        {% if form.errors.title %}
+                            <p style="color: #1a7bb9; margin: 0;" align="left">
+                                {{ form.errors.title.as_text }}
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="col-lg-5">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
-                    {{ form.author }}
+                    <div class="form-group">
+                        {{ form.author }}
+                        {% if form.errors.author %}
+                            <p style="color: #1a7bb9; margin: 0;" align="left">
+                                {{ form.errors.author.as_text }}
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-{#    <div class="row">#}
-{#        <div class="col-lg-12">#}
-{#            <div class="ibox float-e-margins" align="center">#}
-{#                <div class="ibox-content">#}
-{#                    {{ form.advice }}#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    </div>#}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="form-group">
+                        {{ form.advice }}
+                        {% if form.errors.advice %}
+                            <p style="color: #1a7bb9; margin: 0;" align="left">
+                                {{ form.errors.advice.as_text }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-4">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            {{ form.used_to }}
+                            <div class="form-group">
+                                {{ form.used_to }}
+                                {% if form.errors.used_to %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.used_to.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -181,7 +330,14 @@
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            {{ form.became }}
+                            <div class="form-group">
+                                {{ form.became }}
+                                {% if form.errors.became %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.became.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -192,7 +348,14 @@
                 <div class="ibox-content">
                     <div class="form-group" style="margin-bottom: 0px;">
                         <div class="input-group">
-                            {{ form.stack_skills }}
+                            <div class="form-group">
+                                {{ form.stack_skills }}
+                                {% if form.errors.stack_skills %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.stack_skills.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -201,7 +364,9 @@
     </div>
     <div class="ibox float-e-margins">
         <div class="ibox-content no-padding">
-            {{ form.text }}
+            <div class="form-group">
+                {{ form.text }}
+            </div>
         </div>
     </div>
 {#    <div class="row">#}
@@ -233,7 +398,7 @@
 {#            </div>#}
 {#        </div>#}
 {#    </div>#}
-    <button type="submit" class="btn btn-block btn-success">Publish my success story</button>
+    <button type="submit" class="btn btn-block btn-success ">Publish my success story</button>
     <a class="btn btn-block btn-success btn-outline" href="/success-story/">Return</a>
     <br>
     </form>
@@ -257,9 +422,22 @@
 .form-control:focus,
 .single-line:focus,
 .chosen-container-active > .chosen-single, .chosen-drop,
-.chosen-choices:focus
+.chosen-choices:focus,
+.border-color-focus:focus
 {
   border-color: #1a7bb9 !important;
+}
+.has-error .chosen-container .chosen-single,
+.has-error .chosen-container .chosen-choices,
+.has-error .note-editor
+{
+    border-color: #ed5565 !important;
+}
+.has-success .chosen-container .chosen-single,
+.has-success .chosen-container .chosen-choices,
+.has-success .note-editor
+{
+    border-color: #468847 !important;
 }
 </style>
 {% endblock %}

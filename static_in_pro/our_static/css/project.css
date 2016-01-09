@@ -2,3 +2,11 @@
 .single-line:focus {
   border-color: #1a7bb9 !important;
 }
+.validation-icon {
+  position: absolute;
+  top: 10px !important;
+  right: 10px;
+}
+.ibox-content {
+  padding-bottom: 5px !important;
+}

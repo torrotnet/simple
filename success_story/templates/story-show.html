@@ -4,10 +4,10 @@
                     <h2>Text Editor</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="/">Home</a>
                         </li>
                         <li>
-                            Forms
+                            <a href="/success-story/">Story list</a>
                         </li>
                         <li class="active">
                             <strong>{{ story.title }}</strong>
@@ -28,12 +28,13 @@
                             </p>
                             </div>
                             <div class="text-center article-title">
-                            <span class="text-muted"><i class="fa fa-clock-o"></i>{{ story.created.date }}</span>
+                            <span class="text-muted"><i class="fa fa-clock-o"></i> {{ story.created.date }}</span>
                                 <h1>
                                     <strong>{{ story.title }}</strong>
                                 </h1>
                                 <em><p>by {{ story.author }}</p></em>
-                                <small>Worked as a {{ story.used_to }} - began working as a {{ story.became }}.</small>
+                                <small>Worked as a <button class="btn btn-white btn-xs" type="button">{{ story.used_to }}</button>
+                                    - began working as a <button class="btn btn-white btn-xs" type="button">{{ story.became }}</button>.</small>
                             </div>
                         {% autoescape off %}
                         {{ story.text }}

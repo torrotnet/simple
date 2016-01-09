@@ -1,12 +1,12 @@
 from django.contrib import admin
 
-from .forms import SuccessStoryForm, SpecialityForm, StackSkillsForm, AdviceForm
-from .models import SuccessStory, Speciality, StackSkills, Advice
+from .forms import SuccessStoryForm, SpecialityForm, StackSkillsForm
+from .models import SuccessStory, Speciality, StackSkills
 
 
 class SuccessStoryAdmin(admin.ModelAdmin):
     list_display = ["__unicode__", "author",
-                    # "advice",
+                    "advice",
                     "used_to", "became", "rate", "created", "updated"]
     form = SuccessStoryForm
     # class Meta:
@@ -23,12 +23,12 @@ class StackSkillsAdmin(admin.ModelAdmin):
     form = StackSkillsForm
 
 
-class AdviceAdmin(admin.ModelAdmin):
-    list_display = ["__unicode__"]
-    form = AdviceForm
+# class AdviceAdmin(admin.ModelAdmin):
+#     list_display = ["__unicode__"]
+#     form = AdviceForm
 
 
 admin.site.register(SuccessStory, SuccessStoryAdmin)
 admin.site.register(Speciality, SpecialityAdmin)
 admin.site.register(StackSkills, StackSkillsAdmin)
-admin.site.register(Advice, AdviceAdmin)
+# admin.site.register(Advice, AdviceAdmin)
