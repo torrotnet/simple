@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^should-know/$', 'should_know.views.should_know_list', name='should_know_list'),
     url(r'^should-know/person/(?P<id>[0-9]+)/$', 'should_know.views.should_know_person', name='should_know_person'),
     url(r'^should-know/company/(?P<id>[0-9]+)/$', 'should_know.views.should_know_company', name='should_know_company'),
-    url(r'^should_know/person/new/$', 'should_know.views.should_know_person_new', name='should_know_person_new'),
+    url(r'^should-know/person/new/$', 'should_know.views.should_know_person_new', name='should_know_person_new'),
     # url(r'^should_know/company/new/$', 'should_know.views.should_know_company_new', name='should_know_company_new'),
 ]
 

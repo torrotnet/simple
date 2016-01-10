@@ -25,7 +25,7 @@
                 '.chosen-select-no-single' : {disable_search_threshold:10},
                 '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
                 '.chosen-select-width'     : {width:"95%"}
-                }
+                };
             for (var selector in config) {
                 $(selector).chosen(config[selector]);
             }
@@ -34,10 +34,10 @@
     <!-- DROPZONE -->
     <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>
     <script type="text/javascript">
-        jQuery(document).ready(function()
-        {
-            var myDropzone = new Dropzone("div#myId", { url: "file-upload-photo"});
-        });
+{#        jQuery(document).ready(function()#}
+{#        {#}
+{#            var myDropzone = new Dropzone("div#myId", { url: "file-upload-photo"});#}
+{#        });#}
     </script>
 {% endblock %}
 
@@ -98,7 +98,6 @@
                     <input class="textinput textInput form-control" id="id_facebook" maxlength="100" name="facebook" type="text" placeholder="Facebook..." >
                     <input class="textinput textInput form-control" id="id_vk" maxlength="100" name="vk" type="text" placeholder="VK..." >
                     <input class="textinput textInput form-control" id="id_tel" maxlength="100" name="tel" type="text" placeholder="Tel..." >
-
                 </div>
             </div>
         </div>
