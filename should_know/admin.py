@@ -10,7 +10,7 @@ from should_know.models import StackTechnology, ProductDirection, Person, Compan
 
 class PersonAdmin(admin.ModelAdmin):
     list_display = ["__unicode__", "description", "photo",
-                    "email", "skype", "twitter", "facebook", "vk", "tel", "location",
+                    "email", "skype", "twitter", "facebook", "vk", "linked_in", "tel", "location",
                     # "contact",
                     "created", "updated"]
     form = PersonForm

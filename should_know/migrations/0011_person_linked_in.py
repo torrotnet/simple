@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('success_story', '0008_auto_20160108_1844'),
+        ('should_know', '0010_auto_20160110_1407'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='successstory',
-            name='advice',
-            field=models.CharField(default=b'', max_length=140, blank=True),
+            model_name='person',
+            name='linked_in',
+            field=models.URLField(null=True, blank=True),
         ),
     ]

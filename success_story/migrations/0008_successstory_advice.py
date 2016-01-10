@@ -11,11 +11,9 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='advice',
-            name='success_story',
-        ),
-        migrations.DeleteModel(
-            name='Advice',
+        migrations.AddField(
+            model_name='successstory',
+            name='advice',
+            field=models.CharField(default=b'', max_length=140),
         ),
     ]

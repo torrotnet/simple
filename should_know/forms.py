@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import TextInput
+from django.forms import TextInput, URLInput, EmailInput
 from .models import StackTechnology, ProductDirection, Person, Company, Portfolio
 
 
@@ -15,14 +15,21 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = ["name", "description", "photo",
-                  "email", "skype", "twitter", "facebook", "vk", "tel", "location",
+                  "email", "skype", "twitter", "facebook", "vk", "linked_in", "tel", "location",
                   # "contact",
                   # "created", "updated"
                   ]
         widgets = {
-            'title': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story title...'}),
-            'author': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story author...'}),
-            'advice': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'My advice...'}),
+            'name': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Person full name...'}),
+            'description': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'About person...'}),
+            'email': EmailInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Email...'}),
+            'skype': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Skype...'}),
+            'twitter': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Twitter...'}),
+            'facebook': URLInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Facebook...'}),
+            'vk': URLInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'VK...'}),
+            'linked_in': URLInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Linked in...'}),
+            'tel': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Telefone number...'}),
+            'location': TextInput(attrs={'class': 'textinput textInput form-control border-color-focus', 'placeholder': 'Location...'}),
         }
 
 

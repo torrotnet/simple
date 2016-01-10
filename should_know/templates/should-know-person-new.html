@@ -1,43 +1,74 @@
 {% extends "should-know.html" %}
 {% load staticfiles %}
-{% load crispy_forms_tags %}
 
 {% block head-css-story %}
     <!-- include libraries(jQuery, bootstrap, fontawesome) -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-
-    <!-- include chosen css-->
-    <link href="{% static 'css/plugins/chosen/chosen.css' %}" rel="stylesheet">
     <!-- include chosen dropzone-->
     <link href="{% static 'css/plugins/dropzone/basic.css' %}" rel="stylesheet">
     <link href="{% static 'css/plugins/dropzone/dropzone.css' %}" rel="stylesheet">
+    <!-- include formValidation css-->
+    <link href="{% static 'css/plugins/formValidation/formValidation.min.css' %}" rel="stylesheet">
+    <!-- include my own rules-->
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
 {% endblock %}
 
-{% block javascript-story-editor %}
-    <!-- Chosen -->
-    <script src="{%  static 'js/plugins/chosen/chosen.jquery.js' %}"></script>
-    <script>
-            var config = {
-                '.chosen-select'           : {},
-                '.chosen-select-deselect'  : {allow_single_deselect:true},
-                '.chosen-select-no-single' : {disable_search_threshold:10},
-                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
-                '.chosen-select-width'     : {width:"95%"}
-                };
-            for (var selector in config) {
-                $(selector).chosen(config[selector]);
-            }
-    </script>
-
-    <!-- DROPZONE -->
-    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>
-    <script type="text/javascript">
+{% block javascript-should-know-editor %}
+{#    <!-- DROPZONE -->#}
+{#    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>#}
+{#    <script type="text/javascript">#}
 {#        jQuery(document).ready(function()#}
 {#        {#}
 {#            var myDropzone = new Dropzone("div#myId", { url: "file-upload-photo"});#}
 {#        });#}
+{#    </script>#}
+    <!-- FormValidation -->
+    <script src="{%  static 'js/plugins/formValidation/formValidation.min.js' %}"></script>
+    <script src="{%  static 'js/plugins/formValidation/bootstrap.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#shouldKnowPersonForm')
+                .formValidation({
+                    framework: 'bootstrap',
+                    excluded: [':disabled'],
+                    icon: {
+                        valid: 'glyphicon glyphicon-ok validation-icon',
+                        invalid: 'glyphicon glyphicon-remove validation-icon',
+                        validating: 'glyphicon glyphicon-refresh validation-icon'
+                    },
+                    fields: {
+                        name: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Person name is required and cannot be empty'
+                                }
+                            }
+                        },
+                        description: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Person description is required and cannot be empty'
+                                }
+                            }
+                        }
+
+                    }
+
+                })
+                .on('err.field.fv', function (e, data) {
+                    // $(e.target)  --> The field element
+                    // data.fv      --> The FormValidation instance
+                    // data.field   --> The field name
+                    // data.element --> The field element
+
+                    // Hide the messages
+                    data.element
+                        .data('fv.messages')
+                        .find('.help-block[data-fv-for="' + data.field + '"]').hide();
+                });
+        })
     </script>
 {% endblock %}
 
@@ -45,33 +76,45 @@
                     <h2>Text Editor</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="/">Home</a>
                         </li>
                         <li>
-                            <a>Forms</a>
+                            <a href="/should-know/">Should know</a>
                         </li>
                         <li class="active">
-                            <strong>Text Editor</strong>
+                            <strong>Write about person</strong>
                         </li>
                     </ol>
 {% endblock %}
 
 {% block should-know-content %}
-    <form method="POST" action="">{% csrf_token %}
+    <form method="POST" action="" id="shouldKnowPersonForm">{% csrf_token %}
     <div class="row">
         <div class="col-lg-4">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
-                    {#                    <input type="text" placeholder="Story title..." style='display:table-cell; width:100%'>#}
-                    <input class="textinput textInput form-control" id="id_name" maxlength="100" name="name" type="text" placeholder="Person name..." >
-                    {#                    {{ form|crispy }}#}
+                    <div class="form-group">
+                        {{ form.name }}
+                        {% if form.errors.name %}
+                            <p style="color: #1a7bb9; margin: 0;" align="left">
+                                {{ form.errors.name.as_text }}
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-8">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
-                    <input class="textinput textInput form-control" id="id_description" name="desctiption" type="text" placeholder="About person..." >
+                    <div class="form-group">
+                        {{ form.description }}
+                        {% if form.errors.description %}
+                            <p style="color: #1a7bb9; margin: 0;" align="left">
+                                {{ form.errors.description.as_text }}
+                            </p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -79,9 +122,9 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="ibox float-e-margins" align="center">
-                <div class="ibox-content">
+                <div class="ibox-content" style="padding-bottom: 20px !important;">
                     <div class="form-group" style="margin-bottom: 0px;">
-                        <div id="myId" class="dropzone" style="height: 205px">
+                        <div id="myId" class="dropzone" style="height: 185px">
                             <input type="text" name="img" id="id_img" hidden>
                             <button type="submit" class="btn btn-success pull-right">Download photo!</button>
                         </div>
@@ -92,12 +135,76 @@
         <div class="col-lg-8">
             <div class="ibox float-e-margins" align="center">
                 <div class="ibox-content">
-                    <input class="textinput textInput form-control" id="id_email" maxlength="100" name="email" type="text" placeholder="Email..." >
-                    <input class="textinput textInput form-control" id="id_skype" maxlength="100" name="skype" type="text" placeholder="Skype..." >
-                    <input class="textinput textInput form-control" id="id_twitter" maxlength="100" name="twitter" type="text" placeholder="Twitter..." >
-                    <input class="textinput textInput form-control" id="id_facebook" maxlength="100" name="facebook" type="text" placeholder="Facebook..." >
-                    <input class="textinput textInput form-control" id="id_vk" maxlength="100" name="vk" type="text" placeholder="VK..." >
-                    <input class="textinput textInput form-control" id="id_tel" maxlength="100" name="tel" type="text" placeholder="Tel..." >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.location }}
+                                {% if form.errors.location %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.location.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.email }}
+                                {% if form.errors.email %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.email.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.skype }}
+                                {% if form.errors.skype %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.skype.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.tel }}
+                                {% if form.errors.tel %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.tel.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.facebook }}
+                                {% if form.errors.facebook %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.facebook.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.vk }}
+                                {% if form.errors.vk %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.vk.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.linked_in }}
+                                {% if form.errors.linked_in %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.linked_in.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ form.twitter }}
+                                {% if form.errors.twitter %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.twitter.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -107,9 +214,26 @@
     <br>
     </form>
 
-    {{ form.data }}
-    {{ form.is_valid }}
-    {{ form }}
-
-
+<style>
+.form-control:focus,
+.single-line:focus,
+.chosen-container-active > .chosen-single, .chosen-drop,
+.chosen-choices:focus,
+.border-color-focus:focus
+{
+  border-color: #1a7bb9 !important;
+}
+.has-error .chosen-container .chosen-single,
+.has-error .chosen-container .chosen-choices,
+.has-error .note-editor
+{
+    border-color: #ed5565 !important;
+}
+.has-success .chosen-container .chosen-single,
+.has-success .chosen-container .chosen-choices,
+.has-success .note-editor
+{
+    border-color: #468847 !important;
+}
+</style>
 {% endblock %}

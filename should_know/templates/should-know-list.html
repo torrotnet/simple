@@ -5,10 +5,10 @@
                     <h2>Should know</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="/">Home</a>
                         </li>
                         <li class="active">
-                            <strong>Forms</strong>
+                            <strong>Should know</strong>
                         </li>
                     </ol>
 {% endblock %}
@@ -33,16 +33,16 @@
 
                             <div class="row" style="margin-bottom: 20px;">
                                 <div class="col-lg-3">
-                                    <a href="/should_know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Recommend person</a>
+                                    <a href="/should-know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Recommend person</a>
                                 </div>
                                 <div class="col-lg-3">
-                                    <a href="/should_know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Recommend company</a>
+                                    <a href="/should-know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Recommend company</a>
                                 </div>
                                 <div class="col-lg-3">
-                                    <a href="/should_know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Create your team</a>
+                                    <a href="/should-know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Create your team</a>
                                 </div>
                                 <div class="col-lg-3">
-                                    <a href="/should_know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Create your project</a>
+                                    <a href="/should-know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Create your project</a>
                                 </div>
                             </div>
                             <ul class="nav nav-tabs">
@@ -61,11 +61,11 @@
                                                 {% for person in persons %}
                                                     <tr>
                                                     <td class="client-avatar"><img alt="image" src="{% static 'img/a4.jpg' %}"></td>
-                                                    <td><a href="/should-know/person/{{ person.contact_id }}" class="client-link">{{ person.name }}</a></td>
+                                                    <td><a href="/should-know/person/{{ person.id }}" class="client-link">{{ person.name }}</a></td>
                                                     <td> {{ person.description }}</td>
-{#                                                    <td class="contact-type"><i class="fa fa-envelope"> </i></td>#}
-{#                                                    <td> gravida@rbisit.com</td>#}
-{#                                                    <td class="client-status"><span class="label label-primary">Active</span></td>#}
+                                                    <td class="contact-type"><i class="fa fa-envelope"> </i></td>
+                                                    <td> gravida@rbisit.com</td>
+                                                    <td class="client-status"><span class="label label-primary">Active</span></td>
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>
@@ -84,7 +84,7 @@
                                                         <td style="max-width: 80px;">{% for prod in company.product_direction.all %}<span class="label label-info">{{ prod }}</span> {% endfor %}</td>
                                                         <td style="max-width: 80px;">{% for tech in company.stack_technology.all %}<span class="label">{{ tech }}</span> {% endfor %}</td>
                                                         <td style="max-width: 60px;"><i class="fa fa-flag"></i> {{ company.location }}</td>
-                                                        {#                                                    <td class="client-status"><span class="label label-primary">Active</span></td>#}
+{#                                                                                                            <td class="client-status"><span class="label label-primary">Active</span></td>#}
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>

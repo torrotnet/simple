@@ -18,7 +18,7 @@ def should_know_list(request):
 
 def should_know_person(request, id):
     title = "Should know"
-    person = Person.objects.filter(contact_id=id).first()
+    person = Person.objects.filter(id=id).first()
     context = {
         "title": title,
         "person": person,
@@ -29,7 +29,7 @@ def should_know_person(request, id):
 
 def should_know_company(request, id):
     title = "Should know"
-    company = Company.objects.filter(contact_id=id).first()
+    company = Company.objects.filter(id=id).first()
     portfolio = Portfolio.objects.filter(company=company).all()
     context = {
         "title": title,

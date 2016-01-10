@@ -7,13 +7,13 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('success_story', '0009_successstory_advice'),
+        ('should_know', '0011_person_linked_in'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='successstory',
-            name='advice',
-            field=models.CharField(default=b'', max_length=140),
+            model_name='person',
+            name='twitter',
+            field=models.CharField(max_length=100, null=True, blank=True),
         ),
     ]
