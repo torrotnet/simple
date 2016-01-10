@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms import TextInput, Select, Textarea, FileInput, ClearableFileInput, HiddenInput, SelectMultiple
 from django.utils.encoding import smart_unicode
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
-from .models import SuccessStory, Speciality, StackSkills, Advice
+from .models import SuccessStory, Speciality, StackSkills
 
 
 # class SuccessStoryTextForm(forms.ModelForm):
@@ -33,7 +33,7 @@ class SuccessStoryForm(forms.ModelForm):
             # 'text': SummernoteInplaceWidget(attrs={'width': '100%', 'height': '500px'}),
             'title': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story title...'}),
             'author': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'Story author...'}),
-            # 'advice': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'My advice...'}),
+            'advice': TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': 'My advice...'}),
 
             'used_to': Select(attrs={'class': 'chosen-select', 'style': 'min-width: 265px', 'tabindex': '0'}),
             'became': Select(attrs={'class': 'chosen-select', 'style': 'min-width: 265px', 'tabindex': '0'}),
@@ -48,7 +48,6 @@ class SuccessStoryForm(forms.ModelForm):
             # })
 
         }
-
 
     def __init__(self, *args, **kwargs):
         super(SuccessStoryForm, self).__init__(*args, **kwargs)
@@ -96,8 +95,8 @@ class SpecialityForm(forms.ModelForm):
         fields = ["spec_title"]
 
 
-class AdviceForm(forms.ModelForm):
-
-    class Meta:
-        model = Advice
-        fields = ["text"]
+# class AdviceForm(forms.ModelForm):
+#
+#     class Meta:
+#         model = Advice
+#         fields = ["text"]

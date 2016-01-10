@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import Person, Company, Portfolio
 from should_know.forms import PersonForm
+from should_know.models import Person, Company, Portfolio
 
 
 def should_know_list(request):
@@ -43,7 +43,6 @@ def should_know_company(request, id):
 def should_know_person_new(request):
     title = "Recommend person"
     form = PersonForm(request.POST or None)
-
     # specialities = Speciality.objects.all()
     # stack_skills = StackSkills.objects.all()
     context = {
@@ -55,12 +54,14 @@ def should_know_person_new(request):
 
     if form.is_valid():
         instance = form.save(commit=False)
+        instance.save()
+        form.save_m2m()
         # author = form.cleaned_data.get("author")
         # instance.author = author
-        instance.save()
         context = {
-            "title": "Your story saved successfully. Thank you!"
+            "title": "You recommended person successfully. Thank you!"
         }
+        return render(request, "should-know-person-new-thank-you.html", context)
 
     return render(request, "should-know-person-new.html", context)
 

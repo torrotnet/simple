@@ -21,4 +21,11 @@ class Migration(migrations.Migration):
             name='used_to',
             field=models.ForeignKey(related_name='succ_used_to', blank=True, to='success_story.Speciality', null=True),
         ),
+        migrations.RemoveField(
+            model_name='advice',
+            name='success_story',
+        ),
+        migrations.DeleteModel(
+            name='Advice',
+        ),
     ]

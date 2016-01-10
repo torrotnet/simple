@@ -38,9 +38,9 @@ class SuccessStory(models.Model):
         return self.title
 
 
-class Advice(models.Model):
-    success_story = models.ForeignKey(SuccessStory)
-    text = models.CharField(max_length=200)
-
-    def __unicode__(self):
-        return "Advices for %s story" % self.id
+# class Advice(models.Model):
+#     success_story = models.ForeignKey(SuccessStory)
+#     text = models.CharField(max_length=200)
+#
+#     def __unicode__(self):
+#         return "Advices for %s story" % self.id

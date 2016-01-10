@@ -43,7 +43,6 @@ def success_story(request, id):
 
 def success_story_new(request):
     title = "Success story"
-
     form = SuccessStoryForm(request.POST or None)
     specialities = Speciality.objects.all()
     stack_skills = StackSkills.objects.all()
@@ -53,7 +52,7 @@ def success_story_new(request):
         "title": title,
         "form": form
     }
-    print(form.is_valid())
+    # print(form.is_valid())
     if form.is_valid():
         # form.save()
         instance = form.save(commit=False)
@@ -65,7 +64,7 @@ def success_story_new(request):
         context = {
             "title": "Your story saved succesfully. Thank you!"
         }
-        return render(request, "success_story_new_thank_you.html", context)
+        return render(request, "success-story-new-thank-you.html", context)
 
     return render(request, "success-story-new.html", context)
 
@@ -75,7 +74,7 @@ def success_story_new_thank_you(request):
     context = {
         "title": title,
     }
-    return render(request, "success_story_new_thank_you.html", context)
+    return render(request, "success-story-new-thank-you.html", context)
 
 
 def home(request):
