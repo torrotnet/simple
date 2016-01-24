@@ -1,23 +1,110 @@
 {% extends "should-know.html" %}
 {% load staticfiles %}
 
+{% block head-css-story %}
+    <!-- include libraries(jQuery, bootstrap, fontawesome) -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- include chosen css-->
+    <link href="{% static 'css/plugins/chosen/chosen.css' %}" rel="stylesheet">
+    <!-- include formValidation css-->
+    <link href="{% static 'css/plugins/formValidation/formValidation.min.css' %}" rel="stylesheet">
+    <!-- include my own rules-->
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block javascript-should-know-editor %}
+    <!-- Chosen -->
+    <script src="{%  static 'js/plugins/chosen/chosen.jquery.js' %}"></script>
+    <script>
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+                };
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+    </script>
+    <!-- FormValidation -->
+    <script src="{%  static 'js/plugins/formValidation/formValidation.min.js' %}"></script>
+    <script src="{%  static 'js/plugins/formValidation/bootstrap.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#shouldKnowAddProjectForm')
+                .formValidation({
+                    framework: 'bootstrap',
+                    excluded: [':disabled'],
+                    icon: {
+                        valid: 'glyphicon glyphicon-ok validation-icon',
+                        invalid: 'glyphicon glyphicon-remove validation-icon',
+                        validating: 'glyphicon glyphicon-refresh validation-icon'
+                    },
+                    fields: {
+                        name_portfolio: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Project name is required and cannot be empty'
+                                }
+                            }
+                        },
+                        description_portfolio: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Project description is required and cannot be empty'
+                                }
+                            }
+                        },
+                        product_direction_portfolio: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Product direction is required and cannot be empty'
+                                }
+                            }
+                        },
+                        stack_technology_portfolio: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Technologies in project are required and cannot be empty'
+                                }
+                            }
+                        }
+                    }
+                })
+                .on('err.field.fv', function (e, data) {
+                    // $(e.target)  --> The field element
+                    // data.fv      --> The FormValidation instance
+                    // data.field   --> The field name
+                    // data.element --> The field element
+
+                    // Hide the messages
+                    data.element
+                        .data('fv.messages')
+                        .find('.help-block[data-fv-for="' + data.field + '"]').hide();
+                });
+        })
+    </script>
+{% endblock %}
+
 {% block page-heading-should-know %}
                     <h2>Text Editor</h2>
                     <ol class="breadcrumb">
                         <li>
-                            <a href="index.html">Home</a>
+                            <a href="/">Home</a>
                         </li>
                         <li>
-                            Forms
+                            <a href="/should-know/#tab-2">Should know - Companies</a>
                         </li>
                         <li class="active">
-                            <strong>{{ person.name }}</strong>
+                            <strong>{{ company.name }}</strong>
                         </li>
                     </ol>
 {% endblock %}
 
 {% block should-know-content %}
-    <div class="row">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="ibox ">
                         <div class="ibox-content">
@@ -29,7 +116,7 @@
 
                                             <div class="m-b-sm">
                                                 <img alt="image" class="img-circle" src="{% static 'img/a4.jpg' %}"
-                                                     style="width: 62px">
+                                                     style="width: 162px">
                                             </div>
                                         </div>
                                         <div class="col-lg-8" style="text-align: center">
@@ -41,12 +128,12 @@
                                                 {{ company.description }}
                                             </p>
                                             <div class="client-detail" style="height: auto; text-align: center ">
-                                                {% if company.contact.email %}<span><span class="label label-warning">Email:</span> <b>{{ company.contact.email }}</b></span>{% endif %}
-                                                {% if company.contact.skype %}<span><span class="label label-warning">Skype:</span> <b>{{ company.contact.skype }}</b></span>{% endif %}
-                                                {% if company.contact.twitter %}<span><span class="label label-warning">Twitter:</span> <b> {{ company.contact.twitter }}</b></span>{% endif %}
-                                                {% if company.contact.facebook %}<span><span class="label label-warning">Facebook:</span> <b> {{ company.contact.facebook }}</b></span>>{% endif %}
-                                                {% if company.contact.vk %}<span><span class="label label-warning">VK:</span> <b> {{ company.contact.vk }}</b></span>{% endif %}
-                                                {% if company.contact.tel %}<span><span class="label label-warning">Tel.:</span> <b> {{ company.contact.tel }}</b></span>{% endif %}
+                                                {% if company.email %}<span><span class="label label-warning">Email:</span> <b>{{ company.email }}</b></span>{% endif %}
+                                                {% if company.skype %}<span><span class="label label-warning">Skype:</span> <b>{{ company.skype }}</b></span>{% endif %}
+                                                {% if company.twitter %}<span><span class="label label-warning">Twitter:</span> <b> {{ company.twitter }}</b></span>{% endif %}
+                                                {% if company.facebook %}<span><span class="label label-warning">Facebook:</span> <b> {{ company.facebook }}</b></span>>{% endif %}
+                                                {% if company.vk %}<span><span class="label label-warning">VK:</span> <b> {{ company.vk }}</b></span>{% endif %}
+                                                {% if company.tel %}<span><span class="label label-warning">Tel.:</span> <b> {{ company.tel }}</b></span>{% endif %}
                                             </div>
                                             <br>
                                             <div>
@@ -75,33 +162,86 @@
                                             </button>
                                         </div>
                                     </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        Porfolio:
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-hover">
-                                                <tbody>
-                                                {% for proj in portfolio %}
-                                                    <tr>
-                                                        <td><a href="{{ proj.link }}" class="client-link">{{ proj.name }}</a></td>
-                                                        <td style="max-width: 150px">{{ proj.description }}</td>
-                                                        <td style="max-width: 80px;">{% for prod in proj.product_direction.all %}<span class="label label-info">{{ prod }}</span> {% endfor %}</td>
-                                                        <td style="max-width: 80px;">{% for tech in proj.stack_technology.all %}<span class="label">{{ tech }}</span> {% endfor %}</td>
-{#                                                        <td style="max-width: 60px;"><i class="fa fa-flag"></i> {{ company.location }}</td>#}
-{#                                                        <td class="client-status"><span class="label label-primary">Active</span></td>#}
-                                                </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                            </table>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <strong>Porfolio<!-- (<a href="/should-know/company/{{ company.id }}/add-project-to-portfolio">Add project to portfolio</a>)-->:</strong>
+                                            <div class="table-responsive">
+                                                <form method="POST" id='shouldKnowAddProjectForm' action="{% url 'add_project_to_portfolio' company.id %}">{% csrf_token %}
+                                                    <table class="table table-striped table-hover">xz
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="width: 5%"><button type="submit">Add</button><button>Delete</button></td>
+                                                            <td class="client-link" style="width: 25%">
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group">
+                                                                            {{ add_project_form.name_portfolio }}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="form-group">
+                                                                            {{ add_project_form.link_portfolio }}
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td style="max-width: 150px"><div class="form-group">{{ add_project_form.description_portfolio }}</div></td>
+                                                            <td style="max-width: 80px;"><div class="form-group">{{ add_project_form.product_direction_portfolio }}</div></td>
+                                                            <td style="max-width: 80px;"><div class="form-group">{{ add_project_form.stack_technology_portfolio }}</div></td>
+                                                            {# <td style="max-width: 60px;"><i class="fa fa-flag"></i> {{ company.location }}</td>#}
+                                                            {# <td class="client-status"><span class="label label-primary">Active</span></td>#}
+
+                                                        </tr>
+
+                                                        {% for proj in portfolio %}
+                                                            <tr>
+                                                                <td style="width: 5%"><button>Edit</button></td>
+                                                                <td class="client-link">{{ proj.name_portfolio }} (<a href="{{ proj.link_portfolio }}">Go to project</a>)</td>
+                                                                <td style="max-width: 150px">{{ proj.description_portfolio }}</td>
+                                                                <td style="max-width: 80px;">{% for prod in proj.product_direction_portfolio.all %}<span class="label label-info">{{ prod }}</span> {% endfor %}</td>
+                                                                <td style="max-width: 80px;">{% for tech in proj.stack_technology_portfolio.all %}<span class="label">{{ tech }}</span> {% endfor %}</td>
+                                                                {#                                                        <td style="max-width: 60px;"><i class="fa fa-flag"></i> {{ company.location }}</td>#}
+                                                                {#                                                        <td class="client-status"><span class="label label-primary">Active</span></td>#}
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-block btn-success btn-outline" href="/should-know/">Return</a>
+                    <a class="btn btn-block btn-success btn-outline" href="/should-know/company/edit/{{ company.id }}">Edit company info</a>
+                    <a class="btn btn-block btn-success btn-outline" href="/should-know/#tab-2">Return to company list</a>
                 </div>
-        </div>
+            </div>
     <br>
+<style>
+.table-responsive {
+    overflow: visible;
+}
+.form-control:focus,
+.single-line:focus,
+.chosen-container-active > .chosen-single, .chosen-drop,
+.chosen-choices:focus,
+.border-color-focus:focus
+{
+  border-color: #1a7bb9 !important;
+}
+.has-error .chosen-container .chosen-single,
+.has-error .chosen-container .chosen-choices,
+.has-error .note-editor
+{
+    border-color: #ed5565 !important;
+}
+.has-success .chosen-container .chosen-single,
+.has-success .chosen-container .chosen-choices,
+.has-success .note-editor
+{
+    border-color: #468847 !important;
+}
+</style>
 {% endblock %}

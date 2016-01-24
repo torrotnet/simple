@@ -28,9 +28,12 @@ urlpatterns = [
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^should-know/$', 'should_know.views.should_know_list', name='should_know_list'),
     url(r'^should-know/person/(?P<id>[0-9]+)/$', 'should_know.views.should_know_person', name='should_know_person'),
-    url(r'^should-know/company/(?P<id>[0-9]+)/$', 'should_know.views.should_know_company', name='should_know_company'),
+    url(r'^should-know/company/(?P<company_id>[0-9]+)/$', 'should_know.views.should_know_company', name='should_know_company'),
     url(r'^should-know/person/new/$', 'should_know.views.should_know_person_new', name='should_know_person_new'),
-    # url(r'^should_know/company/new/$', 'should_know.views.should_know_company_new', name='should_know_company_new'),
+    url(r'^should-know/company/new/$', 'should_know.views.should_know_company_edit', name='should_know_company_new'),
+    url(r'^should-know/company/edit/(?P<company_id>[0-9]+)/$', 'should_know.views.should_know_company_edit', name='should_know_company_edit'),
+    url(r'^should-know/company/(?P<company_id>[0-9]+)add_add-project-to-portfolio/$', 'should_know.views.add_project_to_portfolio', name='add_project_to_portfolio'),
+
 ]
 
 if settings.DEBUG:

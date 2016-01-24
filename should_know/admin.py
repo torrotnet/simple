@@ -35,7 +35,7 @@ class CompanyAdmin(admin.ModelAdmin):
 
 
 class PortfolioAdmin(admin.ModelAdmin):
-    list_display = ["__unicode__", "link", "description", "company"]
+    list_display = ["__unicode__", "link_portfolio", "description_portfolio", "company_portfolio"]
     form = PortfolioForm
 
 admin.site.register(Person, PersonAdmin)

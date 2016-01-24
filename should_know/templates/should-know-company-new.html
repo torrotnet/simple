@@ -5,6 +5,8 @@
     <!-- include libraries(jQuery, bootstrap, fontawesome) -->
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <!-- include chosen css-->
+    <link href="{% static 'css/plugins/chosen/chosen.css' %}" rel="stylesheet">
     <!-- include chosen dropzone-->
     <link href="{% static 'css/plugins/dropzone/basic.css' %}" rel="stylesheet">
     <link href="{% static 'css/plugins/dropzone/dropzone.css' %}" rel="stylesheet">
@@ -16,6 +18,7 @@
 {% endblock %}
 
 {% block javascript-should-know-editor %}
+
 {#    <!-- DROPZONE -->#}
 {#    <script src="{% static 'js/plugins/dropzone/dropzone.js' %}"></script>#}
 {#    <script type="text/javascript">#}
@@ -24,12 +27,28 @@
 {#            var myDropzone = new Dropzone("div#myId", { url: "file-upload-photo"});#}
 {#        });#}
 {#    </script>#}
+
+    <!-- Chosen -->
+    <script src="{%  static 'js/plugins/chosen/chosen.jquery.js' %}"></script>
+    <script>
+            var config = {
+                '.chosen-select'           : {},
+                '.chosen-select-deselect'  : {allow_single_deselect:true},
+                '.chosen-select-no-single' : {disable_search_threshold:10},
+                '.chosen-select-no-results': {no_results_text:'Oops, nothing found!'},
+                '.chosen-select-width'     : {width:"95%"}
+                };
+            for (var selector in config) {
+                $(selector).chosen(config[selector]);
+            }
+    </script>
+
     <!-- FormValidation -->
     <script src="{%  static 'js/plugins/formValidation/formValidation.min.js' %}"></script>
     <script src="{%  static 'js/plugins/formValidation/bootstrap.min.js' %}"></script>
     <script>
         $(document).ready(function() {
-            $('#shouldKnowPersonForm')
+            $('#shouldKnowCompanyForm')
                 .formValidation({
                     framework: 'bootstrap',
                     excluded: [':disabled'],
@@ -42,19 +61,54 @@
                         name: {
                             validators: {
                                 notEmpty: {
-                                    message: 'Person name is required and cannot be empty'
+                                    message: 'Company name is required and cannot be empty'
                                 }
                             }
                         },
                         description: {
                             validators: {
                                 notEmpty: {
-                                    message: 'Person description is required and cannot be empty'
+                                    message: 'Company description is required and cannot be empty'
+                                }
+                            }
+                        },
+                        location: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Company location is required and cannot be empty'
+                                }
+                            }
+                        },
+                        email: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Company email is required and cannot be empty'
+                                }
+                            }
+                        },
+                        link: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Company site is required and cannot be empty'
+                                }
+                            }
+                        },
+                        stack_technology: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Company technologies are required and cannot be empty'
+                                }
+                            }
+                        },
+                        product_direction: {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Company product directions are required and cannot be empty'
                                 }
                             }
                         }
-
                     }
+
 
                 })
                 .on('err.field.fv', function (e, data) {
@@ -79,16 +133,16 @@
                             <a href="/">Home</a>
                         </li>
                         <li>
-                            <a href="/should-know/">Should know - Persons</a>
+                            <a href="/should-know/#tab-2">Should know - Companies</a>
                         </li>
                         <li class="active">
-                            <strong>Write about person</strong>
+                            <strong>Write about company</strong>
                         </li>
                     </ol>
 {% endblock %}
 
 {% block should-know-content %}
-    <form method="POST" action="" id="shouldKnowPersonForm">{% csrf_token %}
+    <form method="POST" action="" id="shouldKnowCompanyForm">{% csrf_token %}
     <div class="row">
         <div class="col-lg-4">
             <div class="ibox float-e-margins" align="center">
@@ -209,10 +263,86 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-block btn-success">Recommend person</button>
-    <a class="btn btn-block btn-success btn-outline" href="/should-know/">Return</a>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                {{ form.link }}
+                                {% if form.errors.link %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.link.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.price_min }}
+                                {% if form.errors.price_min %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.price_min.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.price_max }}
+                                {% if form.errors.price_max %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.price_max.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins" align="center">
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                {{ form.stack_technology }}
+                                {% if form.errors.stack_technology %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.stack_technology.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                {{ form.product_direction }}
+                                {% if form.errors.product_direction %}
+                                    <p style="color: #1a7bb9; margin: 0;" align="left">
+                                        {{ form.errors.product_direction.as_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <button type="submit" class="btn btn-block btn-success">Save info about company</button>
+    {% if company_id %}
+        <a class="btn btn-block btn-success btn-outline" href="/should-know/company/{{ company_id }}">Return to company info</a>
+    {% endif %}
+    <a class="btn btn-block btn-success btn-outline" href="/should-know/#tab-2">Return to company list</a>
     <br>
     </form>
+
 
 <style>
 .form-control:focus,

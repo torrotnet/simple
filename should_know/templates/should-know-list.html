@@ -1,5 +1,24 @@
 {% extends "should-know.html" %}
 {% load staticfiles %}
+{% block javascript-should-know-editor %}
+    <script>
+        $(function () {
+            $(".tab-pane").hide().first().show();
+            $(".nav-tabs li:first").addClass("active");
+
+            $(".nav-tabs a").on('click', function (e) {
+                e.preventDefault();
+                $(this).closest('li').addClass("active").siblings().removeClass("active");
+                $($(this).attr('href')).show().siblings('.tab-pane').hide();
+            });
+
+            var hash = $.trim( window.location.hash );
+
+            if (hash) $('.nav-tabs a[href$="'+hash+'"]').trigger('click');
+
+        });
+    </script>
+{% endblock %}
 
 {% block page-heading-should-know %}
                     <h2>Should know</h2>
@@ -14,7 +33,7 @@
 {% endblock %}
 
 {% block should-know-content %}
-                <div class="row">
+            <div class="row">
                 <div class="col-sm-12">
                     <div class="ibox">
                         <div class="ibox-content">
@@ -29,14 +48,14 @@
 {#                                        <button type="button" class="btn btn btn-primary"> <i class="fa fa-search"></i> Search</button>#}
 {#                                </span>#}
 {#                            </div>#}
-                            <div class="clients-list">
+
 
                             <div class="row" style="margin-bottom: 20px;">
                                 <div class="col-lg-3">
                                     <a href="/should-know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Recommend person</a>
                                 </div>
                                 <div class="col-lg-3">
-                                    <a href="/should-know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Recommend company</a>
+                                    <a href="/should-know/company/new/" type="button" class="btn btn-block btn-outline btn-success">Recommend company</a>
                                 </div>
                                 <div class="col-lg-3">
                                     <a href="/should-know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Create your team</a>
@@ -45,15 +64,16 @@
                                     <a href="/should-know/person/new/" type="button" class="btn btn-block btn-outline btn-success">Create your project</a>
                                 </div>
                             </div>
+                            <div class="clients-list">
                             <ul class="nav nav-tabs">
 {#                                <span class="pull-right small text-muted">1406 Elements</span>#}
-                                <li class="active"><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Persons</a></li>
-                                <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Companies</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-1"><i class="fa fa-user"></i> Persons</a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-2"><i class="fa fa-briefcase"></i> Companies<span id="definitions"></span></a></li>
                                 <li class=""><a data-toggle="tab" href="#tab-3"><i class="fa fa-user"></i> Teams</a></li>
                                 <li class=""><a data-toggle="tab" href="#tab-4"><i class="fa fa-briefcase"></i> Projects</a></li>
                             </ul>
                             <div class="tab-content">
-                                <div id="tab-1" class="tab-pane active" style="height: auto;">
+                                <div id="tab-1" class="tab-pane" style="height: auto;">
 {#                                    <div class="full-height-scroll">#}
                                         <div class="table-responsive">
                                             <table class="table table-striped table-hover">
@@ -80,7 +100,7 @@
                                                 <tbody>
                                                 {% for company in companies %}
                                                     <tr>
-                                                        <td><a href="/should-know/company/{{ company.contact_id }}" class="client-link">{{ company.name }}</a></td>
+                                                        <td><a href="/should-know/company/{{ company.id }}" class="client-link">{{ company.name }}</a></td>
                                                         <td style="max-width: 80px;">{% for prod in company.product_direction.all %}<span class="label label-info">{{ prod }}</span> {% endfor %}</td>
                                                         <td style="max-width: 80px;">{% for tech in company.stack_technology.all %}<span class="label">{{ tech }}</span> {% endfor %}</td>
                                                         <td style="max-width: 60px;"><i class="fa fa-flag"></i> {{ company.location }}</td>
@@ -886,4 +906,5 @@
 {#                    </div>#}
 {#                </div>#}
             </div>
+
 {% endblock %}
